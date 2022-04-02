@@ -56,12 +56,12 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.keyboardService.enterLetter(event.key).subscribe();
   }
 
-  @HostListener('window:storage', ['$event'])
-  touch(event: StorageEvent) {
-    if (event.key === StorageKey.BoardState) {
-      this.storageService.removeItem(event.key);
-    }
-  }
+  // @HostListener('window:storage', ['$event'])
+  // touch(event: StorageEvent) {
+  //   if (event.key === StorageKey.BoardState) {
+  //     this.storageService.removeItem(event.key);
+  //   }
+  // }
 
   ngAfterViewInit(): void {
     this.store.select(selectLettersChoosed()).pipe(
