@@ -16,7 +16,6 @@ export class StorageService {
   ) { }
 
   public resetBoard(key: StorageKey): void {
-    console.log(key);
     this.setStorage(key, getWordleMock()[key]);
   }
 
@@ -26,18 +25,16 @@ export class StorageService {
   }
 
   public create(): Observable<boolean> {
-    this.getStorage<Board>(StorageKey.BoardState);
+    // this.getStorage<Board>(StorageKey.BoardState);
     return this.gameService.init().pipe(map(() => true));
   }
 
   public getStorage<T>(key: StorageKey): T {
     try {
       const ls = localStorage.getItem(key);
-      console.log(ls);
       if (ls) { return (JSON.parse(ls)) as T; }
       throw new Error(`No storage ${key} founded`);
     } catch (error) {
-      console.log(error);
       this.resetBoard(key);
       return this.getStorage(key);
     }

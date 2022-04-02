@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, withLatestFrom, filter, mergeMap, tap, takeUntil } from 'rxjs';
+import { Subject, combineLatest, withLatestFrom, filter, mergeMap, tap, takeUntil, skip, switchMap } from 'rxjs';
 import { KeyboardDirective } from '../core/directives/keyboard.directive';
 import { KeyboardService } from '../core/services/keyboard/keyboard.service';
 import { StorageService } from '../core/services/storage/storage.service';
@@ -44,8 +44,9 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   ) {
     this.game$.pipe(
       withLatestFrom(this.store.select(selectDateMode())),
+      skip(1),
       filter(([, res2]) => !res2),
-      mergeMap(() => this.store.select(selectBoardState())),
+      switchMap(() => this.store.select(selectBoardState())),
       tap((res) => this.storageService.setStorage(StorageKey.BoardState, res)),
       takeUntil(this.destroy$)
     ).subscribe();
@@ -56,12 +57,12 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     this.keyboardService.enterLetter(event.key).subscribe();
   }
 
-  // @HostListener('window:storage', ['$event'])
-  // touch(event: StorageEvent) {
-  //   if (event.key === StorageKey.BoardState) {
-  //     this.storageService.removeItem(event.key);
-  //   }
-  // }
+  @HostListener('window:storage', ['$event'])
+  touch(event: StorageEvent) {
+    if (event.key === StorageKey.BoardState) {
+      this.storageService.removeItem(event.key);
+    }
+  }
 
   ngAfterViewInit(): void {
     this.store.select(selectLettersChoosed()).pipe(
