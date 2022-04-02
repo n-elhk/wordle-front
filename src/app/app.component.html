@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <div style="display: flex; align-items: center; justify-content: center;width:100%">
+
+    <span>{{title}}</span>
+  </div>
+
+  <!-- <span class="spacer"></span> -->
+  <div>
+
+    <button (click)="openStatDialog()" mat-icon-button class="favorite-icon"
+      aria-label="Example icon-button with heart icon">
+      <mat-icon>bar_chart</mat-icon>
+    </button>
+
+    <button (click)="openHelpDialog()" mat-icon-button class="favorite-icon"
+      aria-label="Example icon-button with heart icon">
+      <mat-icon>help</mat-icon>
+    </button>
+  </div>
+
+</mat-toolbar>
+
+<div *ngIf="status$ | ngrxPush as status">
+  <div [ngSwitch]="status">
+    <app-game *ngSwitchCase="'IN_PROGRESS'"></app-game>
+    <app-waiting-board [status]="status" *ngSwitchDefault></app-waiting-board>
+  </div>
+
+</div>

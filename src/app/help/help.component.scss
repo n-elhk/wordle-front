@@ -1,0 +1,61 @@
+.help-exemple {
+
+  .help-word {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(20px, 36px));
+    text-align: center;
+    column-gap: 1rem;
+
+    height: 36px;
+    padding-block: 1rem;
+
+    .letter-container {
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border: 3px solid hsl(0deg 0% 18%);
+      background-color: transparent;
+      border-radius: 6px;
+      box-sizing: border-box;
+
+      &.correct {
+        background-color: var(--correct-color);
+        border-color: var(--correct-color);
+
+      }
+
+      &.partial {
+        background-color: var(--partial-color);
+        border-color: var(--partial-color);
+      }
+
+      &.absent {
+        background-color: var(--absent-color);
+        border-color: var(--absent-color);
+      }
+    }
+  }
+
+  span {
+    font-weight: 700;
+
+    &.correct {
+      color: var(--correct-color);
+    }
+
+    &.partial {
+      color: var(--partial-color);
+    }
+
+    &.absent {
+      color: var(--absent-color);
+    }
+
+  }
+}
+
+a{
+    color: currentColor;
+}

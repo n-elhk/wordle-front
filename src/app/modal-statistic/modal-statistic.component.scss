@@ -1,0 +1,83 @@
+.stat-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  .stat-card {
+    display: flex;
+    flex: 1 1 auto;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: 20px;
+    background-color: #0e0e0f;
+    border-radius: 6px;
+
+    .stat-card-value {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--correct-color);
+    }
+
+    .stat-card-label {
+      display: flex;
+      align-items: center;
+      height: 30px;
+      font-size: 12px;
+      color: #fff;
+      margin: 0 8px;
+    }
+  }
+}
+
+.perform {
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 16px;
+  }
+
+  .perform-container {
+
+    mat-progress-bar {
+      height: 15px;
+      width: 40%;
+      border-radius: 5px;
+    }
+
+    .green-progress {
+      ::ng-deep .mat-progress-bar-fill::after {
+        background-color: var(--correct-color) !important;
+      }
+    }
+  }
+}
+
+.solution-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 16px;
+  width: 100%;
+
+  .solution {
+    background-color: var(--correct-color);
+
+    span {
+      padding: 5px;
+      text-transform: uppercase;
+    }
+  }
+
+  .sub {
+    font-size: 12px;
+    font-weight: 700;
+    color: hsla(0, 0%, 100%, .5);
+  }
+
+  .sharedable {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}
