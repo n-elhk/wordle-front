@@ -25,7 +25,7 @@ export class ParametersEffects implements OnInitEffects {
     map((wordle) => {
       const gameBoard = this.storageService.getStorage<Board>(StorageKey.BoardState);
       const canReset = this.gameService.checkLastSaved(gameBoard.lastSave);
-      console.log(canReset, gameBoard.lastSave);
+      console.log(canReset, gameBoard);
       if (canReset) {
         this.storageService.resetBoard(StorageKey.BoardState);
       }

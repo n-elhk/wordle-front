@@ -32,7 +32,8 @@ export class StorageService {
 
   public getStorage<T>(key: StorageKey): T {
     try {
-      const ls = localStorage.getItem(key)!;
+      const ls = localStorage.getItem(key);
+      console.log(ls);
       if (ls) { return (JSON.parse(ls)) as T; }
       throw new Error(`No storage ${key} founded`);
     } catch (error) {
