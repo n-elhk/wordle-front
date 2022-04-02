@@ -16,6 +16,7 @@ export class StorageService {
   ) { }
 
   public resetBoard(key: StorageKey): void {
+    console.log(key);
     this.setStorage(key, getWordleMock()[key]);
   }
 
@@ -35,6 +36,7 @@ export class StorageService {
       if (ls) { return (JSON.parse(ls)) as T; }
       throw new Error(`No storage ${key} founded`);
     } catch (error) {
+      console.log(error);
       this.resetBoard(key);
       return this.getStorage(key);
     }

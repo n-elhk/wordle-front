@@ -71,6 +71,7 @@ export class ShareDirective implements OnDestroy {
         if (hours < 0) { hours += 24; }
 
         const seconds = 60 - now.getSeconds();
+        console.log(hours + minutes + seconds);
         if (hours + minutes + seconds === 1) { this.store.dispatch(getNewWord()); }
         return `${hours}:${minutes}:${seconds}`;
       }),
@@ -80,7 +81,7 @@ export class ShareDirective implements OnDestroy {
 
   async showDef(): Promise<void> {
     try {
-      const {link} = await firstValueFrom(this.wordle$);
+      const { link } = await firstValueFrom(this.wordle$);
       window.location.href = link;
     } catch (error) {
       console.log(error);
