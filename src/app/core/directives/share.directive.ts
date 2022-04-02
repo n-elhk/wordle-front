@@ -38,7 +38,7 @@ export class ShareDirective implements OnDestroy {
     ).subscribe();
   }
 
-  getLink(): Observable<void> {
+  public getLink(): Observable<void> {
     return combineLatest([
       this.store.select(selectEvaluations()),
       this.store.select(selectRowIndex()),
@@ -64,21 +64,26 @@ export class ShareDirective implements OnDestroy {
     return interval(1000).pipe(
       map(() => {
         const now = new Date();
-        let hours = 22 - now.getHours();
-        let minutes = 39 - now.getMinutes();
+        let hours = 2 - now.getHours();
+        let minutes = 10 - now.getMinutes();
 
         if (minutes < 0) { minutes += 60; hours -= 1 }
         if (hours < 0) { hours += 24; }
 
         const seconds = 60 - now.getSeconds();
         if (hours + minutes + seconds === 1) { this.store.dispatch(getNewWord()); }
-        return `${hours}:${minutes}:${seconds}`;
+
+        return `${this.zeroPad(hours)}:${this.zeroPad(minutes)}:${this.zeroPad(seconds)}`;
       }),
       takeUntil(this.destroy$),
     );
   }
 
-  async showDef(): Promise<void> {
+  public zeroPad(num: number, places = 2): string {
+    return String(num).padStart(places, '0');
+  }
+
+  public async showDef(): Promise<void> {
     try {
       const { link } = await firstValueFrom(this.wordle$);
       window.location.href = link;
@@ -87,8 +92,7 @@ export class ShareDirective implements OnDestroy {
     }
   }
 
-
-  share(): void {
+  public share(): void {
     try {
       window.location.href = this.url;
     } catch (error) {
@@ -96,7 +100,7 @@ export class ShareDirective implements OnDestroy {
     }
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

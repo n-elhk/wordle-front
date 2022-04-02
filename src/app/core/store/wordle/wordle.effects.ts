@@ -21,7 +21,6 @@ export class ParametersEffects implements OnInitEffects {
    */
   public hydrate$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.hydrate),
-    debounceTime(1000),
     switchMap(() => this.gameService.getWordle()),
     map((wordle) => {
       const gameBoard = this.storageService.getStorage<Board>(StorageKey.BoardState);
