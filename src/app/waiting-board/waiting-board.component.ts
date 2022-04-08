@@ -2,7 +2,7 @@ import { Component, Injector, Input, OnDestroy, ViewChild } from '@angular/core'
 import { MatTooltip } from '@angular/material/tooltip';
 import { GameStatus } from '@models';
 import { Store } from '@ngrx/store';
-import { ShareDirective } from '../core/directives/share.directive';
+import { ShareDirective } from '../shared/directives/share.directive';
 import { AppState } from '../core/store/core.reducer';
 
 

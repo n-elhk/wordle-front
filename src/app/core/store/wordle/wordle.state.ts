@@ -9,7 +9,6 @@ export interface IBoardState {
   wordle: Wordle,
   rowError: string,
 
-  dateMode: number,
   loading: boolean;
   /** The loaded state of get all parameters associated to the current context. */
   loaded: boolean;

@@ -117,12 +117,11 @@ export class GameService {
     return colors;
   }
 
-  checkLastSaved(date: number) {
+  public checkLastSaved(date: number) {
     const now = new Date();
     const currentDate = new Date(date);
-
-    return (currentDate.getDay() !== now.getDay() &&
-      currentDate.getMonth() !== now.getMonth() &&
+    return (currentDate.getDay() !== now.getDay() ||
+      currentDate.getMonth() !== now.getMonth() ||
       currentDate.getFullYear() !== now.getFullYear());
   }
   // function test(targetWord: string, guess: string, expectedOutput: string) {

@@ -43,13 +43,9 @@ export const selectEvaluations = () => createSelector(
   selectParameters, ({ boardState }): KeyOfAttempt[][] => boardState.evaluations,
 );
 
-export const selectDateMode = () => createSelector(
-  selectParameters, (state): number => state.dateMode,
-);
-
 export const selectEnterWord = () => createSelector(
-  selectParameters, ({ boardState, wordle, dateMode }) =>
-  ({ boardState: boardState, currentBoard: boardState.attempts[boardState.rowIndex], solution: wordle.solution, dateMode  }),
+  selectParameters, ({ boardState, wordle }) =>
+  ({ boardState: boardState, currentBoard: boardState.attempts[boardState.rowIndex], solution: wordle.solution  }),
 );
 
 

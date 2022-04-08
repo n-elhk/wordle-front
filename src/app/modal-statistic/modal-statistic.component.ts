@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Inject, Injector, OnDestroy } from 
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WordleStat } from '@models/statistic';
 import { Store } from '@ngrx/store';
-import { ShareDirective } from '../core/directives/share.directive';
+import { ShareDirective } from '../shared/directives/share.directive';
 import { GameService } from '../core/services/game/game.service';
 import { AppState } from '../core/store/core.reducer';
 

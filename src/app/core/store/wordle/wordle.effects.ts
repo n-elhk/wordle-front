@@ -23,11 +23,11 @@ export class ParametersEffects implements OnInitEffects {
     ofType(fromActions.hydrate),
     switchMap(() => this.gameService.getWordle()),
     map((wordle) => {
-      const gameBoard = this.storageService.getStorage<Board>(StorageKey.BoardState);
-      const canReset = this.gameService.checkLastSaved(gameBoard.lastSave);
+      const canReset = this.storageService.checkLastSaved(wordle.solution);
       if (canReset) {
         this.storageService.resetBoard(StorageKey.BoardState);
       }
+      const gameBoard = this.storageService.getStorage<Board>(StorageKey.BoardState);
       return fromActions.hydrateSuccess({ gameBoard, wordle });
     }),
     catchError(() => {
@@ -42,12 +42,12 @@ export class ParametersEffects implements OnInitEffects {
    */
   public enterWord$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.enterWord),
-    map(({ word, solution, boardState, dateMode }) => {
+    map(({ word, solution, boardState }) => {
       if (!this.gameService.isInWordeList(word)) {
         return fromActions.rowNotGuessed({ error: 'Word is not in the list' });
       }
       const boardChecked = this.gameService.checkWord(boardState, solution);
-      if (boardChecked.gameStatus !== 'IN_PROGRESS' && !dateMode) {
+      if (boardChecked.gameStatus !== 'IN_PROGRESS') {
         this.storageService.updateStat(boardChecked.gameStatus, boardChecked.rowIndex);
       }
       return fromActions.enterWordSuccess({ boardState: boardChecked });

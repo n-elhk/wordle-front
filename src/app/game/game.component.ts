@@ -5,13 +5,12 @@ import {
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, withLatestFrom, filter, mergeMap, tap, takeUntil, skip, switchMap } from 'rxjs';
-import { KeyboardDirective } from '../core/directives/keyboard.directive';
+import { KeyboardDirective } from '../shared/directives/keyboard.directive';
 import { KeyboardService } from '../core/services/keyboard/keyboard.service';
 import { StorageService } from '../core/services/storage/storage.service';
 import { AppState } from '../core/store/core.reducer';
 import {
-  selectEvaluations, selectCurrentBoard, selectSolution,
-  selectDateMode, selectBoardState, selectLettersChoosed
+  selectEvaluations, selectCurrentBoard, selectSolution, selectBoardState, selectLettersChoosed
 } from '../core/store/wordle';
 
 @Component({
@@ -43,18 +42,16 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     private store: Store<AppState>,
   ) {
     this.game$.pipe(
-      withLatestFrom(this.store.select(selectDateMode())),
       skip(1),
-      filter(([, res2]) => !res2),
       switchMap(() => this.store.select(selectBoardState())),
       tap((res) => this.storageService.setStorage(StorageKey.BoardState, res)),
-      takeUntil(this.destroy$)
+      takeUntil(this.destroy$),
     ).subscribe();
   }
 
   @HostListener('window:keyup', ['$event'])
   keyEvent(event: KeyboardEvent) {
-    this.keyboardService.enterLetter(event.key).subscribe();
+    this.keyboardService.enterLetter(event.key);
   }
 
   @HostListener('window:storage', ['$event'])
@@ -75,7 +72,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
           else if (partialLetters.indexOf(nativeElement.value) > -1) { nativeElement.classList.add('partial'); }
           else if (absentLetters.indexOf(nativeElement.value) > -1) { nativeElement.classList.add('absent'); }
         });
-      })
+      }),
+      takeUntil(this.destroy$),
     ).subscribe();
   }
 

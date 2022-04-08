@@ -3,9 +3,9 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
 import { combineLatest, firstValueFrom, interval, map, merge, Observable, Subject, takeUntil } from 'rxjs';
-import { AppState } from '../store/core.reducer';
-import { getNewWord } from '../store/wordle';
-import { selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '../store/wordle/wordle.selectors';
+import { AppState } from '../../core/store/core.reducer';
+import { getNewWord } from '../../core/store/wordle';
+import { selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '../../core/store/wordle/wordle.selectors';
 
 
 @Directive({

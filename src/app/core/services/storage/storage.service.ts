@@ -52,5 +52,14 @@ export class StorageService {
     this.setStorage(StorageKey.Stat, st);
   }
 
+  checkLastSaved(solution: string) {
+    const currentSolution = this.getStorage<string>(StorageKey.Answer);
+    if (currentSolution !== solution) {
+      this.setStorage(StorageKey.Answer, solution);
+      return true;
+    }
+    return false;
+  }
+
 
 }

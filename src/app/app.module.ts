@@ -11,25 +11,23 @@ import { ModalStatisticComponent } from './modal-statistic/modal-statistic.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltip, MatTooltipModule } from '@angular/material/tooltip';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 
-import { LetterPipe } from './core/pipes/letter.pipe';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppStoreModule } from './core/store/store.module';
 import { HttpClientModule } from '@angular/common/http';
-import { KeyboardDirective } from './core/directives/keyboard.directive';
 import { ReactiveComponentModule } from '@ngrx/component';
 import { StorageService } from './core/services/storage/storage.service';
-import { ShareDirective } from './core/directives/share.directive';
 import { HelpComponent } from './help/help.component';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -37,10 +35,6 @@ import { HelpComponent } from './help/help.component';
     GameComponent,
     WaitingBoardComponent,
     ModalStatisticComponent,
-
-    LetterPipe,
-    KeyboardDirective,
-    ShareDirective,
     HelpComponent,
   ],
   imports: [
@@ -49,6 +43,7 @@ import { HelpComponent } from './help/help.component';
     BrowserAnimationsModule,
     AppStoreModule,
     HttpClientModule,
+    SharedModule,
 
     MatIconModule,
     MatTooltipModule,
@@ -57,7 +52,7 @@ import { HelpComponent } from './help/help.component';
     MatButtonModule,
     MatSnackBarModule,
     MatProgressBarModule,
-    
+
     ReactiveFormsModule,
 
     StoreModule.forRoot({}, {}),

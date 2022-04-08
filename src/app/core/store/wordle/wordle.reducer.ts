@@ -7,11 +7,10 @@ import * as WordleActions from './wordle.actions';
 import { IBoardState } from './wordle.state';
 
 export const featureName = 'Wordle';
-
+const { gameStatus } = { ...BOARD, }
 export const initialState: IBoardState = {
   boardState: { ...BOARD },
   wordle: {} as Wordle,
-  dateMode: 0,
   rowError: '',
   loading: false,
   loaded: false,

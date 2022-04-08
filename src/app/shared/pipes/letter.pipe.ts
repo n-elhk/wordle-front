@@ -2,8 +2,8 @@ import { Pipe, PipeTransform } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { combineLatest, Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import { AppState } from '../store/core.reducer';
-import { selectAttemptsState, selectRowIndex } from '../store/wordle';
+import { AppState } from '../../core/store/core.reducer';
+import { selectAttemptsState, selectRowIndex } from '../../core/store/wordle';
 
 @Pipe({
   name: 'letter',

@@ -23,7 +23,6 @@ export const getWordleMock = () => ({
         lastSave: Date.now(),
         rowIndex: 0,
     },
-    [StorageKey.Stat]: {
-        games: [],
-    }
+    [StorageKey.Stat]: { games: [] },
+    [StorageKey.Answer]: ''
 })

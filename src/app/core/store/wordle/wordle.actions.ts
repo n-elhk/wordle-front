@@ -20,7 +20,7 @@ export const deleteLetter = createAction(WordleActionTypes.DeleteLetter);
 export const deleteLetterFailure = createAction(WordleActionTypes.DeleteLetterFailure, props<{ error: string }>());
 export const deleteLetterSuccess = createAction(WordleActionTypes.DeleteLetterSuccess, props<{ attempts: string[] }>());
 
-export const enterWord = createAction(WordleActionTypes.EnterWord, props<{ word: string, boardState: Board, solution: string, dateMode: number }>());
+export const enterWord = createAction(WordleActionTypes.EnterWord, props<{ word: string, boardState: Board, solution: string }>());
 export const enterWordFailure = createAction(WordleActionTypes.EnterWordFailure, props<{ error: string }>());
 export const enterWordSuccess = createAction(WordleActionTypes.EnterWordSuccess, props<{ boardState: Board }>());
 
