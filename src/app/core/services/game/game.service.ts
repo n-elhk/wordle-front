@@ -131,10 +131,8 @@ export class GameService {
   //   );
   // }
 
-
   public isInWordeList(word: string): boolean {
-    // return this.wordDict.has(word);
-    return true;
+    return this.wordDict.has(word);
   }
 
   public getStat(arr: WordleStatGame[]) {

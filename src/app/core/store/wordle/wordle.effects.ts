@@ -48,7 +48,7 @@ export class ParametersEffects implements OnInitEffects {
       }
       const boardChecked = this.gameService.checkWord(boardState, solution);
       if (boardChecked.gameStatus !== 'IN_PROGRESS') {
-        this.storageService.updateStat(boardChecked.gameStatus, boardChecked.rowIndex);
+        this.storageService.updateStat(boardChecked.gameStatus, boardChecked.rowIndex + 1);
       }
       return fromActions.enterWordSuccess({ boardState: boardChecked });
     }),
