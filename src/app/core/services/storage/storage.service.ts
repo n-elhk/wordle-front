@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { getWordleMock } from '@mocks';
-import { Board, GameStatus } from '@models/board';
+import { GameStatus } from '@models/board';
 import { WordleStat } from '@models/statistic';
 import { StorageKey } from '@models/storage';
-import { Observable, map } from 'rxjs';
 import { GameService } from '../game/game.service';
 
 @Injectable({
@@ -24,10 +23,10 @@ export class StorageService {
     window.location.reload();
   }
 
-  public create(): Observable<boolean> {
-    // this.getStorage<Board>(StorageKey.BoardState);
-    return this.gameService.init().pipe(map(() => true));
-  }
+  // public create(): Observable<boolean> {
+  //   // this.getStorage<Board>(StorageKey.BoardState);
+  //   return this.gameService.init().pipe(map(() => true));
+  // }
 
   public getStorage<T>(key: StorageKey): T {
     try {

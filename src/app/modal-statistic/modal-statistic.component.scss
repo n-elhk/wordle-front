@@ -1,83 +1,94 @@
-.stat-container {
+.modal-content {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 1rem;
 
-  .stat-card {
+  .stat-item {
     display: flex;
-    flex: 1 1 auto;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-block: 20px;
-    background-color: #0e0e0f;
-    border-radius: 6px;
+    flex-wrap: wrap;
+    gap: 1rem;
 
-    .stat-card-value {
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--correct-color);
-    }
-
-    .stat-card-label {
+    .stat-card {
       display: flex;
+      flex: 1 1 auto;
+      flex-direction: column;
       align-items: center;
-      height: 30px;
-      font-size: 12px;
-      color: #fff;
-      margin: 0 8px;
-    }
-  }
-}
+      justify-content: center;
+      padding-block: 20px;
+      background-color: #0e0e0f;
+      border-radius: 6px;
 
-.perform {
-  h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin-bottom: 16px;
-  }
+      .stat-card-value {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--correct-color);
+      }
 
-  .perform-container {
-
-    mat-progress-bar {
-      height: 15px;
-      width: 40%;
-      border-radius: 5px;
-    }
-
-    .green-progress {
-      ::ng-deep .mat-progress-bar-fill::after {
-        background-color: var(--correct-color) !important;
+      .stat-card-label {
+        display: flex;
+        align-items: center;
+        height: 30px;
+        font-size: 12px;
+        color: #fff;
+        margin: 0 8px;
       }
     }
   }
-}
 
-.solution-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 16px;
-  width: 100%;
+  .perform {
+    h2 {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
 
-  .solution {
-    background-color: var(--correct-color);
+    .perform-item {
 
-    span {
-      padding: 5px;
-      text-transform: uppercase;
+      mat-progress-bar {
+        height: 15px;
+        width: 40%;
+        border-radius: 5px;
+      }
+
+      .green-progress {
+        ::ng-deep .mat-progress-bar-fill::after {
+          background-color: var(--correct-color) !important;
+        }
+      }
     }
   }
 
-  .sub {
-    font-size: 12px;
-    font-weight: 700;
-    color: hsla(0, 0%, 100%, .5);
+  .solution-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 16px;
+    width: 100%;
+
+    .twitter-btn {
+      color: var(--correct-color);
+    }
+
+    .solution {
+      background-color: var(--correct-color);
+
+      span {
+        padding: 5px;
+        text-transform: uppercase;
+      }
+    }
+
+    .sub {
+      font-size: 12px;
+      font-weight: 700;
+      color: hsla(0, 0%, 100%, .5);
+    }
+
+    .sharedable {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 
-  .sharedable {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
 }

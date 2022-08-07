@@ -44,7 +44,7 @@ export class ParametersEffects implements OnInitEffects {
     ofType(fromActions.enterWord),
     map(({ word, solution, boardState }) => {
       if (!this.gameService.isInWordeList(word)) {
-        return fromActions.rowNotGuessed({ error: 'Word is not in the list' });
+        return fromActions.rowNotGuessed({ error: `Le mot n'est pas dans la liste` });
       }
       const boardChecked = this.gameService.checkWord(boardState, solution);
       if (boardChecked.gameStatus !== 'IN_PROGRESS') {

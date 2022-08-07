@@ -3,46 +3,46 @@ import { Injectable } from '@angular/core';
 import { environment } from '@env';
 import { Wordle } from '@models/wordle';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { WordleStatGame } from '@models/statistic';
 import { Attempt, Board, KeyOfAttempt } from '@models';
+import { christianWords, dictionary } from '../../dictionary/dictionary';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-
-  private wordDict!: Set<string>;
+  private wordDict = new Set(dictionary.concat(christianWords));
   private urlServer = environment.urlServer;
 
   constructor(
     private httpClient: HttpClient,
   ) { }
 
-  public init(): Observable<boolean> {
-    return this.getWordListFile();
-  }
+  // public init(): Observable<boolean> {
+  //   return this.getWordListFile();
+  // }
 
   public getWordle(): Observable<Wordle> {
     return this.httpClient.get<Wordle>(`${this.urlServer}/word`);
   }
 
-  public getWordListFile(): Observable<boolean> {
-    return this.httpClient.get('assets/wordlist.txt', { responseType: 'blob' }).pipe(
-      map((res) => {
-        const reader = new FileReader();
-        reader.onload = () => {
-          if (reader.result) {
-            const txt = reader.result.toString().trim();
-            const texts = txt.replace(/\r\n/g, '\n').split('\n');
-            this.wordDict = new Set(texts);
-          }
-        }
-        reader.readAsText(res);
-        return true;
-      })
-    );
-  }
+  // public getWordListFile(): Observable<boolean> {
+  //   return this.httpClient.get('assets/wordlist.txt', { responseType: 'blob' }).pipe(
+  //     map((res) => {
+  //       const reader = new FileReader();
+  //       reader.onload = () => {
+  //         if (reader.result) {
+  //           const txt = reader.result.toString().trim();
+  //           const texts = txt.replace(/\r\n/g, '\n').split('\n');
+  //           this.wordDict = new Set(texts);
+  //         }
+  //       }
+  //       reader.readAsText(res);
+  //       return true;
+  //     })
+  //   );
+  // }
 
   public checkWord(boardState: Board, solution: string): Board {
 

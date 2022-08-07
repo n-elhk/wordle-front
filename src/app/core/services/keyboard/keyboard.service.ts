@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { LETTERS } from '@mocks';
 import { KeyType } from '@models';
 import { Store } from '@ngrx/store';
-import { firstValueFrom, lastValueFrom, take, tap } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 import { AppState } from '../../store/core.reducer';
 import { deleteLetter, chooseLetter, enterWord, selectEnterWord } from '../../store/wordle';
 

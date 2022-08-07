@@ -1,8 +1,8 @@
 <h2 mat-dialog-title>Statistique</h2>
 <mat-dialog-content class="mat-typography">
-    <div style="display: flex; gap: 1rem; flex-direction: column;">
+    <div class="modal-content">
         <ng-container>
-            <div class="stat-container">
+            <div class="stat-item">
                 <div class="stat-card">
                     <div class="stat-card-value">{{data.games.length}}</div>
                     <div class="stat-card-label">Parties</div>
@@ -26,7 +26,7 @@
             <div class="perform">
                 <br>
                 <h2>Performances : </h2>
-                <div class="perform-container">
+                <div class="perform-item">
                     <div *ngFor="let attempts of bestAttempts; let i = index">
                         <div style="display: flex; align-items: center; gap: 1rem;">
                             <div>{{i + 1}} : </div>
@@ -54,12 +54,7 @@
                     </h2>
 
                     <div class="sharedable">
-                        <button (click)="showDef()" mat-button>
-                            <mat-icon matPrefix>library_books</mat-icon>
-                            <span>Définition</span>
-                        </button>
-                        <button mat-button style="color: green;">
-                            <mat-icon matPrefix>share</mat-icon>
+                        <button class="twitter-btn" mat-button>
                             <span>Tweeter</span>
                         </button>
                     </div>
