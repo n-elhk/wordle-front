@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env';
 import { Wordle } from '@models/wordle';
-import { map } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { WordleStatGame } from '@models/statistic';
 import { Attempt, Board, KeyOfAttempt } from '@models';

@@ -1,9 +1,8 @@
-import { Component, Injector, Input, OnDestroy, ViewChild } from '@angular/core';
+import { Component, Input, OnDestroy, ViewChild } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { GameStatus } from '@models';
-import { Store } from '@ngrx/store';
 import { ShareDirective } from '../shared/directives/share.directive';
-import { AppState } from '../core/store/core.reducer';
+
 
 
 @Component({
@@ -16,11 +15,8 @@ export class WaitingBoardComponent extends ShareDirective implements OnDestroy {
   @Input() public status!: GameStatus;
   @ViewChild(MatTooltip) public matTooltip!: MatTooltip;
 
-  constructor(
-    inject: Injector,
-    store: Store<AppState>,
-  ) {
-    super(inject, store);
+  constructor() {
+    super();
   }
 
   clipBord(): void {

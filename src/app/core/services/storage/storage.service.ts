@@ -3,16 +3,13 @@ import { getWordleMock } from '@mocks';
 import { GameStatus } from '@models/board';
 import { WordleStat } from '@models/statistic';
 import { StorageKey } from '@models/storage';
-import { GameService } from '../game/game.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StorageService {
 
-  constructor(
-    private gameService: GameService
-  ) { }
+  constructor() { }
 
   public resetBoard(key: StorageKey): void {
     this.setStorage(key, getWordleMock()[key]);

@@ -1,4 +1,4 @@
-import { Directive, Injector, OnDestroy } from '@angular/core';
+import { Directive, inject, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
@@ -12,24 +12,22 @@ import { selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, se
   selector: '[appShare]'
 })
 export class ShareDirective implements OnDestroy {
+  private domSanitizer = inject(DomSanitizer);
+  protected store = inject(Store<AppState>);
 
   public destroy$ = new Subject<void>();
-  private domSanitizer = this.injector.get(DomSanitizer);
+  
+  protected tweetText = '';
+  protected url = '';
+  protected safeUrl!: SafeUrl;
+  
+  protected countdown$ = this.countdown();
+  protected status$ = this.store.select(selectGameStatus());
+  protected solution$ = this.store.select(selectSolution());
+  protected wordle$ = this.store.select(selectWordle());
+  
 
-  public tweetText = '';
-  public url = '';
-  public safeUrl!: SafeUrl;
-
-  public countdown$ = this.countdown();
-
-  public status$ = this.store.select(selectGameStatus());
-  public solution$ = this.store.select(selectSolution());
-  public wordle$ = this.store.select(selectWordle());
-
-  constructor(
-    private injector: Injector,
-    private store: Store<AppState>,
-  ) {
+  constructor() {
 
     merge(
       this.getLink(),

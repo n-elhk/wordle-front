@@ -11,14 +11,11 @@ import { StorageService } from '../../services/storage/storage.service';
 import { StorageKey } from '@models/storage';
 
 /**
- * Parameters effects allows link each brady tachy action to an effect.
+ * WordleEffects
  */
 @Injectable()
-export class ParametersEffects implements OnInitEffects {
+export class WordleEffects implements OnInitEffects {
   // #region hydrate
-  /**
-   * Create effect for brady tachy actions during get all parameters.
-   */
   public hydrate$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.hydrate),
     switchMap(() => this.gameService.getWordle()),
@@ -37,9 +34,6 @@ export class ParametersEffects implements OnInitEffects {
   ));
 
   // #region enterWord
-  /**
-   * Create effect for brady tachy actions during get all parameters.
-   */
   public enterWord$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.enterWord),
     map(({ word, solution, boardState }) => {
@@ -59,9 +53,6 @@ export class ParametersEffects implements OnInitEffects {
   ));
 
   // #region rowNotGuessed
-  /**
-   * Create effect for brady tachy actions during get all parameters.
-   */
   public rowNotGuessed$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.rowNotGuessed),
     map(({ error }) =>
@@ -71,9 +62,6 @@ export class ParametersEffects implements OnInitEffects {
   ));
 
   // #region getNewWord
-  /**
-   * Create effect for brady tachy actions during get all parameters.
-   */
   public getNewWord$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.getNewWord),
     map(() => {

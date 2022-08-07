@@ -2,9 +2,8 @@ import { NgModule } from '@angular/core';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
-// import { ParametersEffects } from './parameters.effects';
 import * as fromWordle from './wordle.reducer';
-import { ParametersEffects } from './wordle.effects';
+import { WordleEffects } from './wordle.effects';
 
 /**
  * ParametersStoreModule will store any data on the front. It serves as a manager
@@ -14,7 +13,7 @@ import { ParametersEffects } from './wordle.effects';
 @NgModule({
   imports: [
     StoreModule.forFeature(fromWordle.featureName, fromWordle.reducer),
-    EffectsModule.forFeature([ParametersEffects]),
+    EffectsModule.forFeature([WordleEffects]),
   ],
   exports: [StoreModule],
 })
