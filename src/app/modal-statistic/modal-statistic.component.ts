@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WordleStat } from '@models/statistic';
-import { ShareDirective } from '../shared/directives/share.directive';
-import { GameService } from '../core/services/game/game.service';
+import { GameService } from '@services/game/game.service';
+import { ShareDirective } from '@shared/directives/share.directive';
 
 
 @Component({

@@ -5,13 +5,13 @@ import { Wordle } from '@models/wordle';
 import { Observable, of } from 'rxjs';
 import { WordleStatGame } from '@models/statistic';
 import { Attempt, Board, KeyOfAttempt } from '@models';
-import { christianWords, dictionary } from '../../dictionary/dictionary';
+import { CHRISTIAN_WORDS, DICTIONARY_WORDS } from '../../dictionary/dictionary';
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
-  private wordDict = new Set(dictionary.concat(christianWords));
+  private wordDict = new Set(DICTIONARY_WORDS.concat(CHRISTIAN_WORDS));
   private urlServer = environment.urlServer;
 
   constructor(

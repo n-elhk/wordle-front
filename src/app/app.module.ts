@@ -25,7 +25,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { AppStoreModule } from './core/store/store.module';
 import { HttpClientModule } from '@angular/common/http';
-import { ReactiveComponentModule } from '@ngrx/component';
+import { LetModule, PushModule } from '@ngrx/component';
 import { HelpComponent } from './help/help.component';
 import { SharedModule } from './shared/shared.module';
 
@@ -58,7 +58,7 @@ import { SharedModule } from './shared/shared.module';
 
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
-    ReactiveComponentModule,
+    LetModule, PushModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   bootstrap: [AppComponent]

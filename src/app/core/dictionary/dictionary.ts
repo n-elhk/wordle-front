@@ -1,4 +1,4 @@
-export const christianWords = [
+export const CHRISTIAN_WORDS = [
     'abandon',
     'abbatiale',
     'abbaye',
@@ -508,7 +508,7 @@ export const christianWords = [
 ];
 
 
-export const dictionary = [
+export const DICTIONARY_WORDS = [
     "aaron",
     "abaissa",
     "abaissement",

@@ -5,13 +5,11 @@ import {
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { Subject, combineLatest, tap, takeUntil, skip, switchMap } from 'rxjs';
-import { KeyboardDirective } from '../shared/directives/keyboard.directive';
-import { KeyboardService } from '../core/services/keyboard/keyboard.service';
-import { StorageService } from '../core/services/storage/storage.service';
-import { AppState } from '../core/store/core.reducer';
-import {
-  selectEvaluations, selectCurrentBoard, selectSolution, selectBoardState, selectLettersChoosed
-} from '../core/store/wordle';
+import { selectBoardState, selectCurrentBoard, selectEvaluations, selectLettersChoosed, selectSolution } from '@store/wordle';
+import { KeyboardService } from '@services/keyboard/keyboard.service';
+import { StorageService } from '@services/storage/storage.service';
+import { KeyboardDirective } from '@shared/directives/keyboard.directive';
+import { AppState } from '@store/core.reducer';
 
 @Component({
   selector: 'app-game',

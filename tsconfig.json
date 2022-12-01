@@ -13,17 +13,43 @@
     "sourceMap": true,
     "declaration": false,
     "downlevelIteration": true,
+    "useDefineForClassFields": false,
     "experimentalDecorators": true,
     "moduleResolution": "node",
     "importHelpers": true,
-    "target": "es2020",
+    "target": "ES2022",
     "module": "es2020",
     "paths": {
-      "@env": ["src/environments/environment.ts"],
-      "@models": ["src/app/core/models/index.ts"],
-      "@models/*": ["src/app/core/models/*"],
-      "@mocks": ["src/app/core/mocks/index.ts"],
-      "@mocks/*": ["src/app/core/mocks/*"],
+      "@env": [
+        "src/environments/environment.ts"
+      ],
+      "@models": [
+        "src/app/core/models/index.ts"
+      ],
+      "@models/*": [
+        "src/app/core/models/*"
+      ],
+      "@mocks": [
+        "src/app/core/mocks/index.ts"
+      ],
+      "@mocks/*": [
+        "src/app/core/mocks/*"
+      ],
+      "@services": [
+        "src/app/core/services/index.ts"
+      ],
+      "@services/*": [
+        "src/app/core/services/*"
+      ],
+      "@store": [
+        "src/app/core/store/index.ts"
+      ],
+      "@store/*": [
+        "src/app/core/store/*"
+      ],
+      "@shared/*": [
+        "src/app/shared/*"
+      ]
     },
     "lib": [
       "es2020",
