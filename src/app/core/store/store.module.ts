@@ -5,6 +5,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers, metaReducers, initialState } from './core.reducer';
 import { WordleStoreModule } from './wordle/wordle.module';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '@env';
 
 /**
  * AppStoreModule will store any data on the front. It serves as a manager
@@ -30,6 +32,7 @@ import { WordleStoreModule } from './wordle/wordle.module';
     }),
     EffectsModule.forRoot([]),
     WordleStoreModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   exports: [
     StoreModule,

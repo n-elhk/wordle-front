@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
+import { POPUP_DATA } from '@services/overlay/overlay.service';
 import { ShareDirective } from '@shared/directives/share.directive';
 
 
@@ -20,7 +20,7 @@ export class ModalStatisticComponent extends ShareDirective {
 
   constructor(
     gameService: GameService,
-    @Inject(MAT_DIALOG_DATA) public data: WordleStat,
+    @Inject(POPUP_DATA) public data: WordleStat
   ) {
     super();
     this.bestStreak = gameService.bestStreak(this.data.games)[0];

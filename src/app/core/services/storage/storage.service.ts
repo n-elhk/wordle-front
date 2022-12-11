@@ -9,8 +9,6 @@ import { StorageKey } from '@models/storage';
 })
 export class StorageService {
 
-  constructor() { }
-
   public resetBoard(key: StorageKey): void {
     this.setStorage(key, getWordleMock()[key]);
   }

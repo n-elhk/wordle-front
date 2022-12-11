@@ -1,19 +1,17 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { LETTERS } from '@mocks';
 import { KeyType } from '@models';
 import { Store } from '@ngrx/store';
+import { chooseLetter, deleteLetter, enterWord, selectEnterWord } from '@store/wordle';
 import { firstValueFrom } from 'rxjs';
-import { AppState } from '../../store/core.reducer';
-import { deleteLetter, chooseLetter, enterWord, selectEnterWord } from '../../store/wordle';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class KeyboardService {
 
-  constructor(
-    private store: Store<AppState>,
-  ) { }
+  private store = inject(Store);
 
   async enterLetter(letter: string): Promise<void> {
     const { boardState, currentBoard, solution } = await firstValueFrom(this.store.select(selectEnterWord()));

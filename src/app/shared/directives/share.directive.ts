@@ -4,18 +4,17 @@ import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/core.reducer';
 import { getNewWord, selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '@store/wordle';
-import { combineLatest, firstValueFrom, interval, map, merge, Observable, Subject, takeUntil } from 'rxjs';
+import { combineLatest, interval, map, merge, Observable, Subject, takeUntil } from 'rxjs';
 
 @Directive({
   standalone: true,
-  // hostDirectives: [DestroyedDirective],
+  selector:'[toto]'
 })
 export class ShareDirective implements OnDestroy {
   private domSanitizer = inject(DomSanitizer);
   protected store = inject(Store<AppState>);
 
   public destroy$ = new Subject<void>();
-  // public destroy$ = inject(DestroyedDirective).destroy$;
 
   protected tweetText = '';
   protected url = '';
@@ -84,22 +83,5 @@ export class ShareDirective implements OnDestroy {
 
   public zeroPad(num: number, places = 2): string {
     return String(num).padStart(places, '0');
-  }
-
-  public async showDef(): Promise<void> {
-    try {
-      const { link } = await firstValueFrom(this.wordle$);
-      window.location.href = link;
-    } catch (error) {
-      console.log(error);
-    }
-  }
-
-  public share(): void {
-    try {
-      window.location.href = this.url;
-    } catch (error) {
-      console.log(error);
-    }
   }
 }

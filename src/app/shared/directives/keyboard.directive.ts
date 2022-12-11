@@ -1,5 +1,5 @@
-import { Attribute, Directive, HostListener, inject, Input } from '@angular/core';
-import { KeyboardService } from '../../core/services/keyboard/keyboard.service';
+import { Directive, HostListener, inject, Input } from '@angular/core';
+import { KeyboardService } from '@services/keyboard/keyboard.service';
 
 @Directive({
   selector: 'button[appKeyboard]',
@@ -14,6 +14,4 @@ export class KeyboardDirective {
   public keyEvent(): void {
     this.keyboardService.enterLetter(this.appKeyboard);
   }
-
-
 }

@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '@env';
 import { Wordle } from '@models/wordle';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { WordleStatGame } from '@models/statistic';
 import { Attempt, Board, KeyOfAttempt } from '@models';
 import { CHRISTIAN_WORDS, DICTIONARY_WORDS } from '../../dictionary/dictionary';

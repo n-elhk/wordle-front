@@ -1,21 +1,14 @@
-<mat-toolbar>
+<div class="header--container">
   <div class="title">
-    <span>{{title}}</span>
+    <span>{{ title }}</span>
   </div>
-
-  <div>
-    <button (click)="openStatDialog()" mat-icon-button
-      aria-label="Example icon-button with heart icon">
-      <mat-icon>bar_chart</mat-icon>
-    </button>
-
-    <button (click)="openHelpDialog()" mat-icon-button
-      aria-label="Example icon-button with heart icon">
-      <mat-icon>help</mat-icon>
-    </button>
+  
+  <div class="navivations--container">
+    <mat-icon (click)="openStatDialog()">bar_chart</mat-icon>
+    <mat-icon (click)="openHelpDialog()">help</mat-icon>
   </div>
+</div>
 
-</mat-toolbar>
 
 <div *ngIf="status$ | ngrxPush as status">
   <div [ngSwitch]="status">

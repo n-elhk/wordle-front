@@ -10,23 +10,14 @@ import { ModalStatisticComponent } from './modal-statistic/modal-statistic.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatDialogModule } from '@angular/material/dialog';
-import { MatButtonModule } from '@angular/material/button';
-import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { MatProgressBarModule } from '@angular/material/progress-bar';
+
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { environment } from '../environments/environment';
-import { AppStoreModule } from './core/store/store.module';
-import { HttpClientModule } from '@angular/common/http';
-import { LetModule, PushModule } from '@ngrx/component';
 import { HelpComponent } from './help/help.component';
 import { SharedModule } from './shared/shared.module';
+import { CoreModule } from './core/core.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -39,25 +30,17 @@ import { SharedModule } from './shared/shared.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    AppStoreModule,
-    HttpClientModule,
+
+    CoreModule,
     SharedModule,
 
     MatIconModule,
-    MatTooltipModule,
-    MatToolbarModule,
-    MatDialogModule,
-    ClipboardModule,
-    MatButtonModule,
     MatSnackBarModule,
-    MatProgressBarModule,
 
+    ClipboardModule,
+
+    HttpClientModule,
     ReactiveFormsModule,
-
-    StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
-    LetModule, PushModule,
-    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   bootstrap: [AppComponent]
 })

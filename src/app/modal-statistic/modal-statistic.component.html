@@ -1,67 +1,63 @@
-<h2 mat-dialog-title>Statistique</h2>
-<mat-dialog-content class="mat-typography">
-    <div class="modal-content">
-        <ng-container>
-            <div class="stat-item">
-                <div class="stat-card">
-                    <div class="stat-card-value">{{data.games.length}}</div>
-                    <div class="stat-card-label">Parties</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-value">{{percentWin}}</div>
-                    <div class="stat-card-label">Victoires (%)</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-value">{{currentStreak}}</div>
-                    <div class="stat-card-label">Serie actuel</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-card-value">{{bestStreak}}</div>
-                    <div class="stat-card-label">Meilleure série</div>
-                </div>
+<h2 class="dialog-title">Statistique</h2>
+<div class="popup-content">
+    <ng-container>
+        <div class="stat-item">
+            <div class="stat-card">
+                <div class="stat-card-value">{{data.games.length}}</div>
+                <div class="stat-card-label">Parties</div>
             </div>
-        </ng-container>
+            <div class="stat-card">
+                <div class="stat-card-value">{{percentWin}}</div>
+                <div class="stat-card-label">Victoires (%)</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">{{currentStreak}}</div>
+                <div class="stat-card-label">Serie actuel</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">{{bestStreak}}</div>
+                <div class="stat-card-label">Meilleure série</div>
+            </div>
+        </div>
+    </ng-container>
 
-        <ng-container>
-            <div class="perform">
-                <br>
-                <h2>Performances : </h2>
-                <div class="perform-item">
-                    <div *ngFor="let attempts of bestAttempts; let i = index">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <div>{{i + 1}} : </div>
-                            <mat-progress-bar class="green-progress" mode="determinate" [value]="attempts * 10">
-                            </mat-progress-bar>
-                            {{attempts}}
-                            <br>
-                        </div>
+    <ng-container>
+        <div class="perform">
+            <br>
+            <h2>Performances : </h2>
+            <div class="perform-item">
+                <div *ngFor="let attempts of bestAttempts; let i = index">
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <div>{{i + 1}} : </div>
+                        <progress [value]="attempts * 10" max="100">70 %</progress>
+                        {{attempts}}
+                        <br>
                     </div>
                 </div>
             </div>
-        </ng-container>
+        </div>
+    </ng-container>
 
-        <ng-container>
-            <div *ngIf="{
+    <ng-container>
+        <div *ngIf="{
                 status: status$ | ngrxPush,
                 wordle: wordle$ | ngrxPush,
                 solution: solution$ | ngrxPush
             } as state">
 
-                <div *ngIf="state.status !== 'IN_PROGRESS'" class="solution-container">
-                    <div class="sub">Le mot était</div>
-                    <h2 class="solution" *ngIf="state.solution">
-                        <span *ngFor="let s of state.solution.split('')">{{s}}</span>
-                    </h2>
+            <div *ngIf="state.status !== 'IN_PROGRESS'" class="solution-container">
+                <div class="sub">Le mot était</div>
+                <h2 class="solution" *ngIf="state.solution">
+                    <span *ngFor="let s of state.solution.split('')">{{s}}</span>
+                </h2>
 
-                    <div class="sharedable">
-                        <button class="twitter-btn" mat-button>
-                            <span>Tweeter</span>
-                        </button>
-                    </div>
+                <div class="sharedable">
+                    <button class="twitter-btn" type="button">
+                        <span>Tweeter</span>
+                    </button>
                 </div>
             </div>
+        </div>
 
-        </ng-container>
-    </div>
-
-</mat-dialog-content>
+    </ng-container>
+</div>

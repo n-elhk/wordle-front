@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
-import { MatTooltip } from '@angular/material/tooltip';
 import { GameStatus } from '@models';
 import { ShareDirective } from '@shared/directives/share.directive';
+import { AwesomeTooltipDirective } from '@shared/directives/tooltip.directive';
 
 @Component({
   selector: 'app-waiting-board',
@@ -12,14 +12,17 @@ import { ShareDirective } from '@shared/directives/share.directive';
 export class WaitingBoardComponent extends ShareDirective {
 
   @Input() public status!: GameStatus;
-  @ViewChild(MatTooltip) public matTooltip!: MatTooltip;
+  @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
 
   clipBord(): void {
-    this.matTooltip.disabled = false;
-    this.matTooltip.show();
+    this.tooltip.disabled = false;
+    this.tooltip.show();
 
-    setTimeout(() => this.matTooltip.disabled = true, 500);
-    navigator.clipboard.writeText(this.url);
+    setTimeout(() => {
+      this.tooltip.disabled = true;
+      this.tooltip.hide();
+    }, 500);
+
   }
 
 }

@@ -13,7 +13,10 @@
 
     <div class="share-container">
         <div>
-            <a matTooltip="Lien copié" matTooltipDisabled href="javascript:void(0)"
+            <a  href="javascript:void(0)" 
+                (click)="clipBord()"
+                awesomeTooltip="Lien copié"
+                [disabled]="true"
                 aria-label="Button that displays a tooltip that can be programmatically disabled"
                 [cdkCopyToClipboard]="url" class="share-button">Partager</a>
         </div>
