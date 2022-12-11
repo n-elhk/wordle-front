@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { KeyboardDirective } from './directives/keyboard.directive';
 import { ShareDirective } from './directives/share.directive';
 import { LetterPipe } from './pipes/letter.pipe';
@@ -15,12 +14,9 @@ const pipes = [
 ];
 
 @NgModule({
-  declarations: [
+  imports: [
     ...directives,
     ...pipes,
-  ],
-  imports: [
-    CommonModule
   ],
   exports:[
     ...directives,

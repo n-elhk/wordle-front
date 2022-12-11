@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
@@ -11,7 +11,7 @@ import { ShareDirective } from '@shared/directives/share.directive';
   styleUrls: ['./modal-statistic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ModalStatisticComponent extends ShareDirective implements OnDestroy {
+export class ModalStatisticComponent extends ShareDirective {
 
   protected bestStreak = 0;
   protected currentStreak = 0;

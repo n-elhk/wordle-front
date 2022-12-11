@@ -1,18 +1,15 @@
 <mat-toolbar>
-  <div style="display: flex; align-items: center; justify-content: center;width:100%">
-
+  <div class="title">
     <span>{{title}}</span>
   </div>
 
-  <!-- <span class="spacer"></span> -->
   <div>
-
-    <button (click)="openStatDialog()" mat-icon-button class="favorite-icon"
+    <button (click)="openStatDialog()" mat-icon-button
       aria-label="Example icon-button with heart icon">
       <mat-icon>bar_chart</mat-icon>
     </button>
 
-    <button (click)="openHelpDialog()" mat-icon-button class="favorite-icon"
+    <button (click)="openHelpDialog()" mat-icon-button
       aria-label="Example icon-button with heart icon">
       <mat-icon>help</mat-icon>
     </button>
@@ -25,5 +22,4 @@
     <app-game *ngSwitchCase="'IN_PROGRESS'"></app-game>
     <app-waiting-board [status]="status" *ngSwitchDefault></app-waiting-board>
   </div>
-
 </div>

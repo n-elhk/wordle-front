@@ -141,8 +141,6 @@
     display: grid;
     grid-template-columns: repeat(10, 1fr);
     grid-template-rows: repeat(3, 40%);
-    // grid-template-rows: repeat(3, 35%);
-
     grid-column-gap: 0.5rem;
     grid-row-gap: 1rem;
     width: 100%;
@@ -156,7 +154,6 @@
 
       .key {
         cursor: pointer;
-        // height: 60px;
         font-size: 1em;
         font-weight: 700;
         color: var(--key-text-color);

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnDestroy, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
 import { MatTooltip } from '@angular/material/tooltip';
 import { GameStatus } from '@models';
 import { ShareDirective } from '@shared/directives/share.directive';
@@ -9,7 +9,7 @@ import { ShareDirective } from '@shared/directives/share.directive';
   styleUrls: ['./waiting-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class WaitingBoardComponent extends ShareDirective implements OnDestroy {
+export class WaitingBoardComponent extends ShareDirective {
 
   @Input() public status!: GameStatus;
   @ViewChild(MatTooltip) public matTooltip!: MatTooltip;

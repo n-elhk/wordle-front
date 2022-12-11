@@ -2,30 +2,30 @@ import { Directive, inject, OnDestroy } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
+import { AppState } from '@store/core.reducer';
+import { getNewWord, selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '@store/wordle';
 import { combineLatest, firstValueFrom, interval, map, merge, Observable, Subject, takeUntil } from 'rxjs';
-import { AppState } from '../../core/store/core.reducer';
-import { getNewWord } from '../../core/store/wordle';
-import { selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '../../core/store/wordle/wordle.selectors';
-
 
 @Directive({
-  selector: '[appShare]'
+  standalone: true,
+  // hostDirectives: [DestroyedDirective],
 })
 export class ShareDirective implements OnDestroy {
   private domSanitizer = inject(DomSanitizer);
   protected store = inject(Store<AppState>);
 
   public destroy$ = new Subject<void>();
-  
+  // public destroy$ = inject(DestroyedDirective).destroy$;
+
   protected tweetText = '';
   protected url = '';
   protected safeUrl!: SafeUrl;
-  
+
   protected countdown$ = this.countdown();
   protected status$ = this.store.select(selectGameStatus());
   protected solution$ = this.store.select(selectSolution());
   protected wordle$ = this.store.select(selectWordle());
-  
+
 
   constructor() {
 
@@ -34,6 +34,11 @@ export class ShareDirective implements OnDestroy {
     ).pipe(
       takeUntil(this.destroy$),
     ).subscribe();
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   public getLink(): Observable<void> {
@@ -97,10 +102,4 @@ export class ShareDirective implements OnDestroy {
       console.log(error);
     }
   }
-
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
-  }
-
 }
