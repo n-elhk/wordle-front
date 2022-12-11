@@ -40,7 +40,7 @@ export class PopupRef<T, R = unknown> {
     private overlayRef: OverlayRef,
     private popupContainerInstance: OverlayContainerComponent,
     private closeOnBackdropClick = false,
-    id = `crm-popup-${ uniqueId++ }`,
+    id = `popup-${ uniqueId++ }`,
   ) {
     this.popupContainerInstance.id = id;
     this.popupContainerInstance.afterViewInit$.pipe(

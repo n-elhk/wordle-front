@@ -14,10 +14,10 @@ import {
   Inject,
   Optional,
 } from '@angular/core';
+import { OverlayContainerComponent } from '@shared/components/overlay-container.component';
 import { of } from 'rxjs';
 
-import { PopupConfig } from './overlay-config';
-import { OverlayContainerComponent } from '../../../shared/components/overlay-container.component';
+import { PopupConfig } from './popup-config';
 import { PopupRef } from './popup-ref';
 
 export const POPUP_DATA = new InjectionToken<unknown>('PopupData');
@@ -108,7 +108,6 @@ export class OverlayService {
       OverlayContainerComponent,
       config?.viewContainerRef,
       injector,
-      config?.componentFactoryResolver,
     );
     const containerRef = overlay.attach(dialogContainerPortal);
 

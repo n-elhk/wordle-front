@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
-import { POPUP_DATA } from '@services/overlay/overlay.service';
+import { POPUP_DATA } from '@services/popup/popup.service';
 import { ShareDirective } from '@shared/directives/share.directive';
 
 

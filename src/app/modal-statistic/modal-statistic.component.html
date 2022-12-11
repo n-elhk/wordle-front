@@ -29,7 +29,7 @@
                 <div *ngFor="let attempts of bestAttempts; let i = index">
                     <div style="display: flex; align-items: center; gap: 1rem;">
                         <div>{{i + 1}} : </div>
-                        <progress [value]="attempts * 10" max="100">70 %</progress>
+                        <progress [value]="attempts * 10" max="100"></progress>
                         {{attempts}}
                         <br>
                     </div>

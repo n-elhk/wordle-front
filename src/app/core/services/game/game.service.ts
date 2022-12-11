@@ -153,10 +153,11 @@ export class GameService {
 
 
   public bestAttempts(arr: WordleStatGame[]): number[] {
-    return arr.reduce((res, n) => {
-      res[n.nbAttempts - 1]++;
-      return res;
-    }, [0, 0, 0, 0, 0, 0] as number[]);
+    return arr.reduce((acc, curr) => {
+      const nbAttempts = curr.nbAttempts === 6 && curr.won ? curr.nbAttempts -1 :  curr.nbAttempts;
+      acc[nbAttempts]++;
+      return acc;
+    }, [0, 0, 0, 0, 0, 0, 0] as number[]);
   }
 
   public currentStreak(arr: WordleStatGame[]): number {

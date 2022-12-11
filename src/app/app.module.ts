@@ -18,6 +18,7 @@ import { HelpComponent } from './help/help.component';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule } from '@angular/common/http';
+import { ToastModule } from './core/toast/toast.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { HttpClientModule } from '@angular/common/http';
 
     MatIconModule,
     MatSnackBarModule,
+    ToastModule.forRoot(),
 
     ClipboardModule,
 

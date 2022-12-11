@@ -1,5 +1,5 @@
 import { Direction } from '@angular/cdk/bidi';
-import { ComponentFactoryResolver, ViewContainerRef } from '@angular/core';
+import { ViewContainerRef } from '@angular/core';
 
 /**
  * Configuration for opening a popup dialog with the PopupService.
@@ -8,8 +8,6 @@ export class PopupConfig<D = unknown> {
   /** Affects where the popup will be situated in Angular's logical tree. */
   public viewContainerRef?: ViewContainerRef;
 
-  /** Alternate component factory resolver to be used for component instanciation. */
-  public componentFactoryResolver?: ComponentFactoryResolver;
 
   /** Layout direction for the dialog's content. */
   public direction?: Direction;

@@ -1,7 +1,6 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import { environment } from 'src/environments/environment';
 
-
 export interface AppState {
   dummy: boolean;
 }

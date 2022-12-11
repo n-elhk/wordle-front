@@ -1,6 +1,6 @@
+import { Board } from '@models/board';
 import { Wordle } from '@models/wordle';
 import { createAction, props } from '@ngrx/store';
-import { Board } from '../../models/board';
 import { WordleActionTypes } from './worldle.types';
 
 export const hydrate = createAction(WordleActionTypes.Hydrate);

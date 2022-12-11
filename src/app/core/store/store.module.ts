@@ -26,7 +26,7 @@ import { environment } from '@env';
       metaReducers,
       runtimeChecks: {
         strictStateImmutability: true,
-        strictActionImmutability: false, // Should stay disabled for portal outlet action.
+        strictActionImmutability: true,
         // strictActionWithinNgZone: true,
       },
     }),

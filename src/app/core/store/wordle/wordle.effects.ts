@@ -5,10 +5,10 @@ import { map, catchError, debounceTime, switchMap } from 'rxjs/operators';
 import { Action } from '@ngrx/store';
 import * as fromActions from './wordle.actions';
 import { GameService } from '../../services/game/game.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { Board } from '@models/board';
 import { StorageService } from '../../services/storage/storage.service';
 import { StorageKey } from '@models/storage';
+import { ToastService } from '../../toast/toast.service';
 
 /**
  * WordleEffects
@@ -56,7 +56,7 @@ export class WordleEffects implements OnInitEffects {
   public rowNotGuessed$ = createEffect(() => this.actions$.pipe(
     ofType(fromActions.rowNotGuessed),
     map(({ error }) =>
-      this.matSnackBar.open(error, '', { duration: 3000, horizontalPosition: 'center', verticalPosition: 'top' })),
+      this.toastService.show({ data: { text: error, type: 'warning' } })),
     debounceTime(200),
     map(() => fromActions.rowNotGuessedSuccess())
   ));
@@ -74,7 +74,7 @@ export class WordleEffects implements OnInitEffects {
     private actions$: Actions,
     private gameService: GameService,
     private storageService: StorageService,
-    private matSnackBar: MatSnackBar,
+    private toastService: ToastService,
   ) { }
 
   public ngrxOnInitEffects(): Action {

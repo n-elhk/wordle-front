@@ -7,7 +7,7 @@ import { AppState } from './core/store/core.reducer';
 import { selectGameStatus } from './core/store/wordle';
 import { HelpComponent } from './help/help.component';
 import { ModalStatisticComponent } from './modal-statistic/modal-statistic.component';
-import { OverlayService } from '@services/overlay/overlay.service';
+import { OverlayService } from '@services/popup/popup.service';
 
 @Component({
   selector: 'app-root',
