@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { selectAttemptsState, selectRowIndex } from '@store/wordle';
 import { firstValueFrom } from 'rxjs';
 
-
 @Pipe({
   name: 'letter',
   standalone: true,

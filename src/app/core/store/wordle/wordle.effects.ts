@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Actions, createEffect, ofType, ROOT_EFFECTS_INIT } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, debounceTime, switchMap } from 'rxjs/operators';
-import { Action } from '@ngrx/store';
 import * as fromActions from './wordle.actions';
 import { GameService } from '../../services/game/game.service';
 import { Board } from '@models/board';
@@ -14,10 +13,10 @@ import { ToastService } from '../../toast/toast.service';
  * WordleEffects
  */
 @Injectable()
-export class WordleEffects implements OnInitEffects {
+export class WordleEffects {
   // #region hydrate
   public hydrate$ = createEffect(() => this.actions$.pipe(
-    ofType(fromActions.hydrate),
+    ofType(fromActions.hydrate, ROOT_EFFECTS_INIT),
     switchMap(() => this.gameService.getWordle()),
     map((wordle) => {
       const canReset = this.storageService.checkLastSaved(wordle.solution);
@@ -76,8 +75,4 @@ export class WordleEffects implements OnInitEffects {
     private storageService: StorageService,
     private toastService: ToastService,
   ) { }
-
-  public ngrxOnInitEffects(): Action {
-    return fromActions.hydrate();
-  }
 }

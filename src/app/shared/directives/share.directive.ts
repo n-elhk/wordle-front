@@ -8,7 +8,6 @@ import { combineLatest, interval, map, merge, Observable, Subject, takeUntil } f
 
 @Directive({
   standalone: true,
-  selector:'[toto]'
 })
 export class ShareDirective implements OnDestroy {
   private domSanitizer = inject(DomSanitizer);
