@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
 import { POPUP_DATA } from '@services/popup/popup.service';
@@ -12,20 +12,11 @@ import { ShareDirective } from '@shared/directives/share.directive';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalStatisticComponent extends ShareDirective {
+  private gameService = inject(GameService);
 
-  protected bestStreak = 0;
-  protected currentStreak = 0;
-  protected percentWin = 0;
-  protected bestAttempts: number[] = [];
-
-  constructor(
-    gameService: GameService,
-    @Inject(POPUP_DATA) public data: WordleStat
-  ) {
-    super();
-    this.bestStreak = gameService.bestStreak(this.data.games)[0];
-    this.currentStreak = gameService.currentStreak(this.data.games);
-    this.percentWin = Math.round(gameService.percentWin(this.data.games));
-    this.bestAttempts = gameService.bestAttempts(this.data.games);
-  }
+  protected data = inject<WordleStat>(POPUP_DATA);
+  protected bestStreak = this.gameService.bestStreak(this.data.games)[0];
+  protected currentStreak = this.gameService.currentStreak(this.data.games);
+  protected percentWin = Math.round(this.gameService.percentWin(this.data.games));
+  protected bestAttempts: number[] = this.gameService.bestAttempts(this.data.games);
 }

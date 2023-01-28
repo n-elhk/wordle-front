@@ -4,7 +4,7 @@ import {
 } from '@angular/core';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
-import { Subject, combineLatest, tap, takeUntil, skip, switchMap } from 'rxjs';
+import { Subject, combineLatest, tap, takeUntil, skip, switchMap, map } from 'rxjs';
 import { selectBoardState, selectCurrentBoard, selectEvaluations, selectLettersChoosed, selectSolution } from '@store/wordle';
 import { KeyboardService } from '@services/keyboard/keyboard.service';
 import { StorageService } from '@services/storage/storage.service';
@@ -22,17 +22,19 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   @ViewChildren(KeyboardDirective, { read: ElementRef }) public matButtonChildren!: QueryList<ElementRef<HTMLButtonElement>>;
   @ViewChildren('boardRow', { read: ElementRef }) public rowChildren!: QueryList<ElementRef<HTMLDivElement>>;
 
-  public title = 'wordle';
-  public evaluation$ = this.store.select(selectEvaluations());
-  public currentBoard$ = this.store.select(selectCurrentBoard());
-  public solution$ = this.store.select(selectSolution());
+  protected title = 'wordle';
+  protected evaluation$ = this.store.select(selectEvaluations);
+  protected currentBoard$ = this.store.select(selectCurrentBoard);
+  protected solution$ = this.store.select(selectSolution);
 
-  public destroy$ = new Subject<void>();
+  private destroy$ = new Subject<void>();
 
-  public game$ = combineLatest([
+  protected game$ = combineLatest([
     this.evaluation$,
     this.currentBoard$,
-  ]);
+  ]).pipe(
+    map(([evaluation, currentBoard]) => ({evaluation, currentBoard}))
+  );
 
   constructor(
     private storageService: StorageService,
@@ -41,7 +43,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
   ) {
     this.game$.pipe(
       skip(1),
-      switchMap(() => this.store.select(selectBoardState())),
+      switchMap(() => this.store.select(selectBoardState)),
       tap((res) => this.storageService.setStorage(StorageKey.BoardState, res)),
       takeUntil(this.destroy$),
     ).subscribe();
@@ -59,8 +61,8 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.store.select(selectLettersChoosed()).pipe(
+public ngAfterViewInit(): void {
+    this.store.select(selectLettersChoosed).pipe(
       tap(([partialLetters, correctLetters, absentLetters]) => {
         this.matButtonChildren.forEach(({ nativeElement }) => {
           if (correctLetters.indexOf(nativeElement.value) > -1) {
@@ -75,7 +77,7 @@ export class GameComponent implements AfterViewInit, OnDestroy {
     ).subscribe();
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }

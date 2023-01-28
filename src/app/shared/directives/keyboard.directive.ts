@@ -1,4 +1,4 @@
-import { Directive, HostListener, inject, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
 import { KeyboardService } from '@services/keyboard/keyboard.service';
 
 @Directive({
@@ -8,10 +8,10 @@ import { KeyboardService } from '@services/keyboard/keyboard.service';
 export class KeyboardDirective {
   private keyboardService = inject(KeyboardService);
 
-  @Input() public appKeyboard!: string;
+  constructor(private el: ElementRef<HTMLButtonElement>) {}
 
   @HostListener('click')
   public keyEvent(): void {
-    this.keyboardService.enterLetter(this.appKeyboard);
+    this.keyboardService.enterLetter(this.el.nativeElement.value);
   }
 }

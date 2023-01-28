@@ -15,8 +15,8 @@ export class LetterPipe implements PipeTransform {
   async transform(value: string, index: number, index2: number): Promise<string> {
 
     const [attempts, rowIndex] = await Promise.all([
-      firstValueFrom(this.store.select(selectAttemptsState())),
-      firstValueFrom(this.store.select(selectRowIndex())),
+      firstValueFrom(this.store.select(selectAttemptsState)),
+      firstValueFrom(this.store.select(selectRowIndex)),
     ]);
 
     const letters = Array.from(value);

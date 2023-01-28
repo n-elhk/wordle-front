@@ -3,7 +3,7 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
 import { AppState } from '@store/core.reducer';
-import { getNewWord, selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle } from '@store/wordle';
+import { selectEvaluations, selectGameStatus, selectRowIndex, selectSolution, selectWordle, wordleActions } from '@store/wordle';
 import { combineLatest, interval, map, merge, Observable, Subject, takeUntil } from 'rxjs';
 
 @Directive({
@@ -20,9 +20,9 @@ export class ShareDirective implements OnDestroy {
   protected safeUrl!: SafeUrl;
 
   protected countdown$ = this.countdown();
-  protected status$ = this.store.select(selectGameStatus());
-  protected solution$ = this.store.select(selectSolution());
-  protected wordle$ = this.store.select(selectWordle());
+  protected status$ = this.store.select(selectGameStatus);
+  protected solution$ = this.store.select(selectSolution);
+  protected wordle$ = this.store.select(selectWordle);
 
 
   constructor() {
@@ -41,8 +41,8 @@ export class ShareDirective implements OnDestroy {
 
   public getLink(): Observable<void> {
     return combineLatest([
-      this.store.select(selectEvaluations()),
-      this.store.select(selectRowIndex()),
+      this.store.select(selectEvaluations),
+      this.store.select(selectRowIndex),
     ]).pipe(
       map(([evaluations, rowIndex]) => {
         let tweetText = `Christus (@Christus) ${rowIndex}/${evaluations.length} \n`;
@@ -72,7 +72,7 @@ export class ShareDirective implements OnDestroy {
         if (hours < 0) { hours += 24; }
 
         const seconds = 60 - now.getSeconds();
-        if (hours + minutes + seconds === 1) { this.store.dispatch(getNewWord()); }
+        if (hours + minutes + seconds === 1) { this.store.dispatch(wordleActions.getNewWord()); }
 
         return `${this.zeroPad(hours)}:${this.zeroPad(minutes)}:${this.zeroPad(seconds)}`;
       }),

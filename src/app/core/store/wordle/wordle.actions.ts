@@ -1,31 +1,35 @@
 import { Board } from '@models/board';
 import { Wordle } from '@models/wordle';
-import { createAction, props } from '@ngrx/store';
-import { WordleActionTypes } from './worldle.types';
+import { createActionGroup, emptyProps, props } from '@ngrx/store';
+import { featureName } from './feature.name';
 
-export const hydrate = createAction(WordleActionTypes.Hydrate);
-export const hydrateFailure = createAction(WordleActionTypes.HydrateFailure, props<{ error: string }>());
-export const hydrateSuccess = createAction(WordleActionTypes.HydrateSuccess, props<{ gameBoard: Board, wordle: Wordle }>());
+export const wordleActions = createActionGroup({
+    source: featureName,
+    events: {
+        ['hydrate']: emptyProps(),
+        ['hydrate failure']: props<{ error: string }>(),
+        ['hydrate success']: props<{ gameBoard: Board, wordle: Wordle }>(),
 
-export const getWord = createAction(WordleActionTypes.GetWord);
-export const getWordFailure = createAction(WordleActionTypes.GetWordFailure, props<{ error: string }>());
-export const getWordSuccess = createAction(WordleActionTypes.GetWordSuccess, props<{ word: string }>());
+        ['get word']: emptyProps(),
+        ['get word failure']: props<{ error: string }>(),
+        ['get word success']: props<{  word: string }>(),
 
+        ['choose letter']: props<{ letter: string }>(), 
+        ['choose letter failure']: props<{ error: string }>(),
+        ['choose letter success']: props<{  attempts: string[]}>(),
 
-export const chooseLetter = createAction(WordleActionTypes.ChooseLetter, props<{ letter: string }>());
-export const chooseLetterFailure = createAction(WordleActionTypes.ChooseLetterFailure, props<{ error: string }>());
-export const chooseLetterSuccess = createAction(WordleActionTypes.ChooseLetterSuccess, props<{ attempts: string[] }>());
+        ['delete letter']: emptyProps(),
+        ['delete letter failure']: props<{ error: string }>(),
+        ['delete letter success']: props<{  attempts: string[] }>(),
 
-export const deleteLetter = createAction(WordleActionTypes.DeleteLetter);
-export const deleteLetterFailure = createAction(WordleActionTypes.DeleteLetterFailure, props<{ error: string }>());
-export const deleteLetterSuccess = createAction(WordleActionTypes.DeleteLetterSuccess, props<{ attempts: string[] }>());
+        ['enter word']: props<{ word: string, boardState: Board, solution: string }>(),
+        ['enter word failure']: props<{ error: string }>(),
+        ['enter word success']: props<{ boardState: Board }>(),
 
-export const enterWord = createAction(WordleActionTypes.EnterWord, props<{ word: string, boardState: Board, solution: string }>());
-export const enterWordFailure = createAction(WordleActionTypes.EnterWordFailure, props<{ error: string }>());
-export const enterWordSuccess = createAction(WordleActionTypes.EnterWordSuccess, props<{ boardState: Board }>());
+        ['row not guessed']: props<{ error: string }>(),
+        ['row not guessed success']: emptyProps(),
 
-export const rowNotGuessed = createAction(WordleActionTypes.RowNotGuessed, props<{ error: string }>());
-export const rowNotGuessedSuccess = createAction(WordleActionTypes.RowNotGuessedSuccess);
-
-export const getNewWord = createAction(WordleActionTypes.GetNewWord);
+        ['get new word']: emptyProps(),
+    }
+});
 

@@ -1,54 +1,41 @@
-import { Board, GameStatus, KeyOfAttempt } from '@models/board';
-import { Wordle } from '@models/wordle';
-import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { featureName } from './wordle.reducer';
-import { IBoardState } from './wordle.state';
+import { createSelector } from '@ngrx/store';
+import { wordleFeature } from './wordle.reducer';
 
-export const selectParameters = createFeatureSelector<IBoardState>(featureName);
+export const { 
+  selectBoardState,
+  selectWordle,
+  selectLoading,
+ } = wordleFeature;
 
-export const selectBoardState = () => createSelector(
-  selectParameters, (state): Board => state.boardState,
+export const selectAttemptsState = createSelector(
+  selectBoardState, ({ attempts }) => attempts,
 );
 
-export const selectWordle = () => createSelector(
-  selectParameters, (state): Wordle => state.wordle,
+export const selectGameStatus = createSelector(
+  selectBoardState, ({ gameStatus }) => gameStatus,
 );
 
-export const selectBoardLoading = () => createSelector(
-  selectParameters, (state): boolean => state.loading,
+export const selectRowIndex = createSelector(
+  selectBoardState, ({ rowIndex }) => rowIndex,
 );
 
-export const selectAttemptsState = () => createSelector(
-  selectParameters, ({ boardState }): string[] => boardState.attempts,
+export const selectCurrentBoard = createSelector(
+  selectAttemptsState, selectRowIndex, (attempts, rowIndex) => attempts[rowIndex],
 );
 
-export const selectGameStatus = () => createSelector(
-  selectParameters, ({ boardState }): GameStatus => boardState.gameStatus,
+export const selectSolution = createSelector(
+  selectWordle, (wordle) => wordle.solution,
 );
 
-export const selectRowIndex = () => createSelector(
-  selectParameters, ({ boardState }): number => boardState.rowIndex,
+export const selectEvaluations = createSelector(
+  selectBoardState, ({ evaluations }) => evaluations,
 );
 
-export const selectCurrentBoard = () => createSelector(
-  selectParameters, ({ boardState }): string => boardState.attempts[boardState.rowIndex],
+export const selectEnterWord = createSelector(
+  selectBoardState, selectCurrentBoard, selectSolution, (boardState, currentBoard, solution) =>
+  ({ boardState, currentBoard, solution  }),
 );
 
-export const selectSolution = () => createSelector(
-  selectParameters, (state): string => state.wordle.solution,
-);
-
-
-export const selectEvaluations = () => createSelector(
-  selectParameters, ({ boardState }): KeyOfAttempt[][] => boardState.evaluations,
-);
-
-export const selectEnterWord = () => createSelector(
-  selectParameters, ({ boardState, wordle }) =>
-  ({ boardState: boardState, currentBoard: boardState.attempts[boardState.rowIndex], solution: wordle.solution  }),
-);
-
-
-export const selectLettersChoosed = () => createSelector(
-  selectParameters, ({ boardState }): [string[], string[], string[]] => [boardState.partialLetters, boardState.correctLetters, boardState.absentLetters],
+export const selectLettersChoosed = createSelector(
+  selectBoardState, ({partialLetters, correctLetters, absentLetters}): [string[], string[], string[]] => [partialLetters, correctLetters, absentLetters],
 );

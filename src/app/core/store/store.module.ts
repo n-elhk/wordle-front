@@ -14,7 +14,6 @@ import { environment } from '@env';
  * It provides a common way for GETting, POSTing (etc) data to the server.
  */
 @NgModule({
-  declarations: [],
   imports: [
     BrowserAnimationsModule,
     CommonModule,
@@ -31,8 +30,8 @@ import { environment } from '@env';
       },
     }),
     EffectsModule.forRoot([]),
-    WordleStoreModule,
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
+    WordleStoreModule,
   ],
   exports: [
     StoreModule,

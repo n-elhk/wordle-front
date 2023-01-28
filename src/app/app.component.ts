@@ -17,7 +17,7 @@ import { OverlayService } from '@services/popup/popup.service';
 })
 export class AppComponent {
   public title = 'wordle';
-  protected status$ = this.store.select(selectGameStatus());
+  protected status$ = this.store.select(selectGameStatus);
 
   constructor(
     private store: Store<AppState>,
