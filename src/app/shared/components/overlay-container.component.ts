@@ -16,6 +16,7 @@ import {
   ViewEncapsulation,
   HostBinding,
   OnDestroy,
+  inject,
 } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
@@ -56,6 +57,8 @@ class ContentIsAlreadyAttachedError extends Error {
   encapsulation: ViewEncapsulation.None,
 })
 export class OverlayContainerComponent extends BasePortalOutlet implements AfterViewInit, OnDestroy {
+  private host = inject<ElementRef<HTMLElement>>(ElementRef);
+  
   /**
    * Reference to the portal outlet.
    */
@@ -69,11 +72,6 @@ export class OverlayContainerComponent extends BasePortalOutlet implements After
   /** A subject that fires right after the popup has finished opening. */
   public readonly afterViewInit$ = new ReplaySubject<void>(1);
 
-  constructor(
-    private readonly host: ElementRef<HTMLElement>,
-  ) {
-    super();
-  }
 
   /** @inheritdoc */
   public ngAfterViewInit(): void {

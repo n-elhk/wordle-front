@@ -1,6 +1,6 @@
 import { Overlay, OverlayPositionBuilder, OverlayRef } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import { Directive, ElementRef, HostListener, Input } from '@angular/core';
+import { Directive, ElementRef, HostListener, inject, Input } from '@angular/core';
 import { AwesomeTooltipComponent } from '@shared/components/tooltip.component';
 
 @Directive({
@@ -8,17 +8,17 @@ import { AwesomeTooltipComponent } from '@shared/components/tooltip.component';
   standalone: true,
 })
 export class AwesomeTooltipDirective {
+  private overlay = inject(Overlay);
+
+  private overlayPositionBuilder = inject(OverlayPositionBuilder);
+
+  private elementRef = inject(ElementRef);
 
   @Input('awesomeTooltip') public text = '';
+
   @Input() public disabled = false;
 
   private overlayRef!: OverlayRef;
-
-  constructor(
-    private overlay: Overlay,
-    private overlayPositionBuilder: OverlayPositionBuilder,
-    private elementRef: ElementRef,
-  ) { }
 
   public ngOnInit(): void {
     const positionStrategy = this.overlayPositionBuilder

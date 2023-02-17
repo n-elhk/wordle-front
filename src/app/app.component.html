@@ -12,7 +12,7 @@
 
 <div *ngIf="status$ | ngrxPush as status">
   <div [ngSwitch]="status">
-    <app-game *ngSwitchCase="'IN_PROGRESS'"></app-game>
-    <app-waiting-board [status]="status" *ngSwitchDefault></app-waiting-board>
+    <app-game *ngSwitchCase="'IN_PROGRESS'"/>
+    <app-waiting-board [status]="status" *ngSwitchDefault/>
   </div>
 </div>

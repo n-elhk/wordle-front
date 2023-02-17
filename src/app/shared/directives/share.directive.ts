@@ -1,4 +1,4 @@
-import { Directive, inject, OnDestroy } from '@angular/core';
+import { Directive, inject, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { Store } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { combineLatest, interval, map, merge, Observable, Subject, takeUntil } f
 @Directive({
   standalone: true,
 })
-export class ShareDirective implements OnDestroy {
+export class ShareDirective implements OnInit, OnDestroy {
   private domSanitizer = inject(DomSanitizer);
   protected store = inject(Store<AppState>);
 
@@ -24,9 +24,7 @@ export class ShareDirective implements OnDestroy {
   protected solution$ = this.store.select(selectSolution);
   protected wordle$ = this.store.select(selectWordle);
 
-
-  constructor() {
-
+  public ngOnInit(): void {
     merge(
       this.getLink(),
     ).pipe(
