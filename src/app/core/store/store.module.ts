@@ -26,7 +26,7 @@ import { environment } from '@env';
       runtimeChecks: {
         strictStateImmutability: true,
         strictActionImmutability: true,
-        // strictActionWithinNgZone: true,
+        strictActionWithinNgZone: true,
       },
     }),
     EffectsModule.forRoot([]),

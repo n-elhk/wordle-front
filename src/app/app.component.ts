@@ -27,7 +27,7 @@ export class AppComponent {
   ) { }
 
 
-  openStatDialog(): void {
+  public openStatDialog(): void {
     const wordleState = this.storageService.getStorage(StorageKey.Stat);
     this.overlayService.open(ModalStatisticComponent, {
       viewContainerRef: this.vcr,
@@ -37,7 +37,7 @@ export class AppComponent {
     });
   }
 
-  openHelpDialog(): void {
+  public openHelpDialog(): void {
     this.overlayService.open(HelpComponent, { width: '500px', viewContainerRef: this.vcr, hasBackdrop: true });
   }
 }

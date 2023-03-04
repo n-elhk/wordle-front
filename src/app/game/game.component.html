@@ -1,9 +1,14 @@
 <div *ngrxLet="game$ as game" id="game">
-  <div [style.--col-grid]="(solution$ | async)?.length" class="grid-container">
-    <div #boardRow class="attempt" *ngFor="let ev of game.evaluation; let rowIndex = index">
+  <div
+    *ngrxLet="solution$ as solution" 
+    class="grid-container"
+    [style.--col-grid]="solution?.length" 
+    >
+    <div *ngFor="let ev of game.evaluation; let rowIndex = index" class="attempt">
       <!-- <div [ngClass]="{'has-letter': currentBoard[rowIndex] }" -->
-      <div class="letter-container {{game.evaluation[rowIndex][colIndex]}} delay-{{colIndex + 1}}"
-        *ngFor="let _ of ev; let colIndex = index">
+      <div 
+        *ngFor="let _ of ev; let colIndex = index" 
+        class="letter-container {{game.evaluation[rowIndex][colIndex]}} delay-{{colIndex + 1}}">
         <div class="letter">{{ game.currentBoard | letter : rowIndex : colIndex | async }}</div>
       </div>
     </div>
@@ -46,7 +51,7 @@
       <button appKeyboard type="button" value="b" class="key">B</button>
       <button appKeyboard type="button" value="n" class="key">N</button>
       <button [style.--col-key]="9" appKeyboard type="button" value="delete" class="key big">
-        <mat-icon (click)="$event.stopPropagation">delete</mat-icon>
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
   </div>

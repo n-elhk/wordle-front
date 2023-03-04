@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { inject, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -10,7 +10,6 @@ import { ModalStatisticComponent } from './modal-statistic/modal-statistic.compo
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatIconModule } from '@angular/material/icon';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
@@ -36,7 +35,6 @@ import { ToastModule } from './core/toast/toast.module';
     SharedModule,
 
     MatIconModule,
-    MatSnackBarModule,
     ToastModule.forRoot(),
 
     ClipboardModule,

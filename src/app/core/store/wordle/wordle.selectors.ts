@@ -24,7 +24,7 @@ export const selectCurrentBoard = createSelector(
 );
 
 export const selectSolution = createSelector(
-  selectWordle, (wordle) => wordle.solution,
+  selectWordle, ({ solution }) => solution,
 );
 
 export const selectEvaluations = createSelector(
