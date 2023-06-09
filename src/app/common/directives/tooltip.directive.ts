@@ -11,7 +11,7 @@ import {
   inject,
   Input,
 } from '@angular/core';
-import { AwesomeTooltipComponent } from '@shared/components/tooltip.component';
+import { AwesomeTooltipComponent } from '@components/tooltip.component';
 
 @Directive({
   selector: '[awesomeTooltip]',

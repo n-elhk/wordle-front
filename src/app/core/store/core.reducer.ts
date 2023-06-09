@@ -1,5 +1,5 @@
+import { isDevMode } from '@angular/core';
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
-import { environment } from 'src/environments/environment';
 
 export interface AppState {
   dummy: boolean;
@@ -13,4 +13,4 @@ export const reducers: ActionReducerMap<AppState> = {
   dummy: () => true,
 };
 
-export const metaReducers: MetaReducer<AppState>[] = !environment.production ? [] : [];
+export const metaReducers: MetaReducer<AppState>[] = isDevMode() ? [] : [];

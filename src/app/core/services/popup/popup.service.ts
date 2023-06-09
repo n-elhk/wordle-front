@@ -14,11 +14,11 @@ import {
   Inject,
   Optional,
 } from '@angular/core';
-import { OverlayContainerComponent } from '@shared/components/overlay-container.component';
 import { of } from 'rxjs';
 
 import { PopupConfig } from './popup-config';
 import { PopupRef } from './popup-ref';
+import { OverlayContainerComponent } from '@components/overlay-container.component';
 
 export const POPUP_DATA = new InjectionToken<unknown>('PopupData');
 export const DEFAULT_POPUP_CONFIG = new InjectionToken<unknown>('DEFAULT_POPUP_CONFIG');

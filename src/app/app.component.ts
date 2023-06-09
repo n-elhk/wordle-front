@@ -8,15 +8,28 @@ import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { StorageService } from './core/services/storage/storage.service';
 import { selectGameStatus } from './core/store/wordle';
-import { HelpComponent } from './help/help.component';
-import { ModalStatisticComponent } from './modal-statistic/modal-statistic.component';
+
 import { OverlayService } from '@services/popup/popup.service';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { PushPipe } from '@ngrx/component';
+import { GameComponent } from './pages/game/game.component';
+import { WaitingBoardComponent } from './pages/waiting-board/waiting-board.component';
+import { HelpComponent, ModalStatisticComponent } from '@components/modals';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatIconModule,
+    PushPipe,
+    GameComponent,
+    WaitingBoardComponent,
+  ],
 })
 export class AppComponent {
   /** Injection of {@link FormBuilder}. */

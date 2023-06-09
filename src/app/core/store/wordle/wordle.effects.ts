@@ -1,20 +1,21 @@
 import { inject, Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, OnInitEffects } from '@ngrx/effects';
+import { Actions, createEffect, ofType, rootEffectsInit } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { map, catchError, debounceTime, switchMap } from 'rxjs/operators';
-import { GameService } from '../../services/game/game.service';
+
 import { Board } from '@models/board';
-import { StorageService } from '../../services/storage/storage.service';
+
 import { StorageKey } from '@models/storage';
-import { ToastService } from '../../toast/toast.service';
 import { wordleActions } from './wordle.actions';
-import { Action } from '@ngrx/store';
+import { StorageService } from '@services/storage/storage.service';
+import { GameService } from '@services/game/game.service';
+import { ToastService } from '../../toast/toast.service';
 
 /**
  * WordleEffects
  */
 @Injectable()
-export class WordleEffects implements OnInitEffects {
+export class WordleEffects {
   /** Injection of {@link Actions}. */
   private actions$ = inject(Actions);
 
@@ -30,7 +31,7 @@ export class WordleEffects implements OnInitEffects {
   // #region hydrate
   public hydrate$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(wordleActions.hydrate),
+      ofType(wordleActions.hydrate, rootEffectsInit),
       switchMap(() => this.gameService.getWordle()),
       map((solution) => {
         const gameBoard = this.storageService.getStorage<Board>(
@@ -81,8 +82,4 @@ export class WordleEffects implements OnInitEffects {
       map(() => wordleActions.rowNotGuessedSuccess())
     )
   );
-
-  public ngrxOnInitEffects(): Action {
-    return wordleActions.hydrate();
-  }
 }

@@ -29,15 +29,21 @@ import {
 } from '@store/wordle';
 import { KeyboardService } from '@services/keyboard/keyboard.service';
 import { StorageService } from '@services/storage/storage.service';
-import { KeyboardDirective } from '@shared/directives/keyboard.directive';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { untilDestroyed } from '../common/functions/destroy-ref';
+import { CommonModule } from '@angular/common';
+import { MatIconModule } from '@angular/material/icon';
+import { LetDirective } from '@ngrx/component';
+import { LetterPipe } from '@common/pipes';
+import { KeyboardDirective } from '@common/directives';
 
 @Component({
   selector: 'app-game',
   templateUrl: './game.component.html',
   styleUrls: ['./game.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [LetterPipe, CommonModule, MatIconModule, LetDirective],
+  standalone: true,
 })
 export class GameComponent implements OnInit, AfterViewInit {
   private destroy$ = untilDestroyed();

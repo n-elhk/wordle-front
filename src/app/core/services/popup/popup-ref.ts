@@ -1,8 +1,8 @@
 import { OverlayRef } from '@angular/cdk/overlay';
 import { hasModifierKey } from '@angular/cdk/keycodes';
 import { filter, Observable, Subject, tap, first } from 'rxjs';
+import { OverlayContainerComponent } from '@components/overlay-container.component';
 
-import { OverlayContainerComponent } from '../../../shared/components/overlay-container.component';
 
 let uniqueId = 0;
 

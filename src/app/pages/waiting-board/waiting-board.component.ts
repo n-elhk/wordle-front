@@ -1,16 +1,28 @@
-import { ChangeDetectionStrategy, Component, Input, ViewChild } from '@angular/core';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+import { CommonModule } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  ViewChild,
+} from '@angular/core';
+import { AwesomeTooltipDirective, ShareDirective } from '@common/directives';
 import { GameStatus } from '@models';
-import { ShareDirective } from '@shared/directives/share.directive';
-import { AwesomeTooltipDirective } from '@shared/directives/tooltip.directive';
 
 @Component({
   selector: 'app-waiting-board',
   templateUrl: './waiting-board.component.html',
   styleUrls: ['./waiting-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [
+    CommonModule,
+    AwesomeTooltipDirective,
+    ClipboardModule,
+    ShareDirective,
+  ],
+  standalone: true,
 })
 export class WaitingBoardComponent extends ShareDirective {
-
   @Input() public status!: GameStatus;
 
   @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
@@ -23,7 +35,5 @@ export class WaitingBoardComponent extends ShareDirective {
       this.tooltip.disabled = true;
       this.tooltip.hide();
     }, 500);
-
   }
-
 }
