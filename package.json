@@ -1,10 +1,13 @@
 {
+  "homepage": "https://n-elhk.github.io/wordle-front",
   "name": "wordle",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "predeploy":"ng build --base-href /wordle-front/",
+    "ghPages": "gh-pages -d dist/wordle-front",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
@@ -33,6 +36,7 @@
     "@angular/compiler-cli": "^16.0.5",
     "@types/jasmine": "~4.3.0",
     "@types/node": "^20.2.5",
+    "gh-pages": "^5.0.0",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
