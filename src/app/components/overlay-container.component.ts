@@ -26,7 +26,9 @@ import { ReplaySubject } from 'rxjs';
  */
 class ContentIsAlreadyAttachedError extends Error {
   constructor() {
-    super(`Attempting to attach popup content after content is already attached`);
+    super(
+      `Attempting to attach popup content after content is already attached`
+    );
   }
 }
 
@@ -37,32 +39,35 @@ class ContentIsAlreadyAttachedError extends Error {
  */
 @Component({
   selector: 'overlay-container',
-  imports: [
-    PortalModule,
-  ],
+  imports: [PortalModule],
   template: `<ng-template cdkPortalOutlet></ng-template>`,
-  styles: [`
-  overlay-container {
-    position: relative;
-    overflow-y: auto;
-
-    background-color: var(--secondary-color);
-    color: var(--text-color);
-    border-radius: 4px;
-    width: 100%;
-    padding: 1rem 1.2rem;
-}
-`],
+  styles: [
+    `
+      overlay-container {
+        position: relative;
+        overflow-y: auto;
+        background-color: var(--secondary-color);
+        color: var(--text-color);
+        border-radius: 4px;
+        width: 100%;
+        padding: 1rem 1.2rem;
+      }
+    `,
+  ],
   standalone: true,
   encapsulation: ViewEncapsulation.None,
 })
-export class OverlayContainerComponent extends BasePortalOutlet implements AfterViewInit, OnDestroy {
+export class OverlayContainerComponent
+  extends BasePortalOutlet
+  implements AfterViewInit, OnDestroy
+{
   private host = inject<ElementRef<HTMLElement>>(ElementRef);
-  
+
   /**
    * Reference to the portal outlet.
    */
-  @ViewChild(CdkPortalOutlet, { static: true }) private portalOutlet!: CdkPortalOutlet;
+  @ViewChild(CdkPortalOutlet, { static: true })
+  private portalOutlet!: CdkPortalOutlet;
 
   /**
    * Id of the popup container.
@@ -71,7 +76,6 @@ export class OverlayContainerComponent extends BasePortalOutlet implements After
 
   /** A subject that fires right after the popup has finished opening. */
   public readonly afterViewInit$ = new ReplaySubject<void>(1);
-
 
   /** @inheritdoc */
   public ngAfterViewInit(): void {
@@ -119,7 +123,9 @@ export class OverlayContainerComponent extends BasePortalOutlet implements After
    * @param portal A TemplatePortal.
    * @returns The inserted EmbeddedView.
    */
-  public attachTemplatePortal<C>(portal: TemplatePortal<C>): EmbeddedViewRef<C> {
+  public attachTemplatePortal<C>(
+    portal: TemplatePortal<C>
+  ): EmbeddedViewRef<C> {
     if (this.portalOutlet.hasAttached()) {
       throw new ContentIsAlreadyAttachedError();
     }

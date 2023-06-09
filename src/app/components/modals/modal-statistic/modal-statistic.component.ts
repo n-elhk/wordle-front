@@ -10,7 +10,8 @@ import { AwesomeTooltipDirective, ShareDirective } from '@common/directives';
 import { SvgIcon } from '@components/icon';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
-import { POPUP_DATA } from '@services/popup/popup.service';
+import { PopupRef } from '@services/popup/popup-ref';
+import { OverlayService, POPUP_DATA } from '@services/popup/popup.service';
 
 @Component({
   selector: 'wd-modal-statistic',
@@ -31,15 +32,16 @@ export class ModalStatisticComponent extends ShareDirective {
   private gameService = inject(GameService);
 
   /** Injection of {@link POPUP_DATA}. */
-  protected data = inject<WordleStat>(POPUP_DATA);
+  public data = inject<WordleStat>(POPUP_DATA);
 
-  protected bestStreak = this.gameService.bestStreak(this.data.games)[0];
+  /** Injection of {@link PopupRef}. */
+  public popupRef = inject(PopupRef);
 
-  protected currentStreak = this.gameService.currentStreak(this.data.games);
+  public bestStreak = this.gameService.bestStreak(this.data.games)[0];
 
-  protected percentWin = Math.round(
-    this.gameService.percentWin(this.data.games)
-  );
+  public currentStreak = this.gameService.currentStreak(this.data.games);
 
-  protected bestAttempts = this.gameService.bestAttempts(this.data.games);
+  public percentWin = Math.round(this.gameService.percentWin(this.data.games));
+
+  public bestAttempts = this.gameService.bestAttempts(this.data.games);
 }

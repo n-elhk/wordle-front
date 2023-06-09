@@ -55,6 +55,7 @@ export class AppComponent {
       viewContainerRef: this.vcr,
       hasBackdrop: true,
       width: '500px',
+      panelClass: 'popup',
       data: wordleState,
     });
   }
@@ -62,6 +63,7 @@ export class AppComponent {
   public openHelpDialog(): void {
     this.overlayService.open(HelpComponent, {
       width: '500px',
+      panelClass: 'popup',
       viewContainerRef: this.vcr,
       hasBackdrop: true,
     });

@@ -25,18 +25,15 @@ export class GameService {
    */
   public getWordle(): Observable<string> {
     if (this.storageService.checkLastSaved()) {
-      const random = this.getRandomNumber(0, CHRISTIAN_WORDS.length - 1);
+      const words = CHRISTIAN_WORDS.filter((w) => w.length < 9);
 
-      const word = CHRISTIAN_WORDS[random];
+      const random = this.getRandomNumber(0, words.length - 1);
 
-      // const date = new Date();
-      // date.setDate(new Date().getDate() - 1);
-      // date.setMinutes(new Date().getMinutes() + 1);
+      const word = words[random];
 
       const b64 = window.btoa(word);
       this.storageService.setStorage(StorageKey.Answer, b64);
       this.storageService.setStorage(StorageKey.Date, new Date().getTime());
-      // this.storageService.setStorage(StorageKey.Date, date.getTime());
       this.storageService.resetStorage(StorageKey.BoardState);
 
       return of(b64);

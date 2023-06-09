@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { SvgIcon } from '@components/icon';
+import { PopupRef } from '@services/popup/popup-ref';
 
 @Component({
   selector: 'wd-help',
@@ -6,5 +8,9 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   styleUrls: ['./help.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
+  imports: [SvgIcon],
 })
-export class HelpComponent {}
+export class HelpComponent {
+  /** Injection of {@link PopupRef}. */
+  public popupRef = inject(PopupRef);
+}

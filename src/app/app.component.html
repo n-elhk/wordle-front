@@ -9,9 +9,9 @@
   </div>
 </div>
 
-<div *ngIf="status() as statusValue">
-  <div [ngSwitch]="statusValue">
+<div class="page-container" *ngIf="status() as statusValue">
+  <ng-container [ngSwitch]="statusValue">
     <wd-game *ngSwitchCase="'IN_PROGRESS'" />
     <wd-waiting-board *ngSwitchDefault />
-  </div>
+  </ng-container>
 </div>
