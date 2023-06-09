@@ -1,9 +1,8 @@
 import { Board } from '@models/board';
-import { Wordle } from '@models/wordle';
 
 export interface IBoardState {
   boardState: Board,
-  wordle: Wordle,
+  solution: string,
   rowError: string,
   loading: boolean;
   loaded: boolean;

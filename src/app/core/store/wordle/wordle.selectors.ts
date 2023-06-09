@@ -3,7 +3,7 @@ import { wordleFeature } from './wordle.reducer';
 
 export const { 
   selectBoardState,
-  selectWordle,
+  selectSolution,
   selectLoading,
  } = wordleFeature;
 
@@ -23,9 +23,6 @@ export const selectCurrentBoard = createSelector(
   selectAttemptsState, selectRowIndex, (attempts, rowIndex) => attempts[rowIndex],
 );
 
-export const selectSolution = createSelector(
-  selectWordle, ({ solution }) => solution,
-);
 
 export const selectEvaluations = createSelector(
   selectBoardState, ({ evaluations }) => evaluations,

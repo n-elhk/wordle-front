@@ -1,15 +1,23 @@
-<div *ngrxLet="game$ as game" id="game">
+<!-- <div *ngrxLet="game$ as game" id="game"> -->
+<div id="game">
   <div
-    *ngrxLet="solution$ as solution" 
+    *ngrxLet="solution() as word"
     class="grid-container"
-    [style.--col-grid]="solution?.length" 
+    [style.--col-grid]="word.length"
+  >
+    <div
+      *ngFor="let ev of evaluations() as lines; let rowIndex = index"
+      class="attempt"
     >
-    <div *ngFor="let ev of game.evaluation; let rowIndex = index" class="attempt">
-      <!-- <div [ngClass]="{'has-letter': currentBoard[rowIndex] }" -->
-      <div 
-        *ngFor="let _ of ev; let colIndex = index" 
-        class="letter-container {{game.evaluation[rowIndex][colIndex]}} delay-{{colIndex + 1}}">
-        <div class="letter">{{ game.currentBoard | letter : rowIndex : colIndex | async }}</div>
+      <div
+        *ngFor="let _ of ev; let colIndex = index"
+        class="letter-container {{ lines[rowIndex][colIndex] }} delay-{{
+          colIndex + 1
+        }}"
+      >
+        <div class="letter">
+          {{ currentBoard() | letter : rowIndex : colIndex }}
+        </div>
       </div>
     </div>
   </div>
@@ -41,7 +49,13 @@
     </div>
 
     <div class="keyboard-line">
-      <button [style.--col-key]="1" appKeyboard type="button" value="enter" class="key big">
+      <button
+        [style.--col-key]="1"
+        appKeyboard
+        type="button"
+        value="enter"
+        class="key big"
+      >
         <mat-icon>keyboard_return</mat-icon>
       </button>
       <button appKeyboard type="button" value="w" class="key">W</button>
@@ -50,7 +64,13 @@
       <button appKeyboard type="button" value="v" class="key">V</button>
       <button appKeyboard type="button" value="b" class="key">B</button>
       <button appKeyboard type="button" value="n" class="key">N</button>
-      <button [style.--col-key]="9" appKeyboard type="button" value="delete" class="key big">
+      <button
+        [style.--col-key]="9"
+        appKeyboard
+        type="button"
+        value="delete"
+        class="key big"
+      >
         <mat-icon>delete</mat-icon>
       </button>
     </div>

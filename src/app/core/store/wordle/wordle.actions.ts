@@ -1,5 +1,4 @@
 import { Board } from '@models/board';
-import { Wordle } from '@models/wordle';
 import { createActionGroup, emptyProps, props } from '@ngrx/store';
 import { featureName } from './feature.name';
 
@@ -8,7 +7,7 @@ export const wordleActions = createActionGroup({
     events: {
         ['hydrate']: emptyProps(),
         ['hydrate failure']: props<{ error: string }>(),
-        ['hydrate success']: props<{ gameBoard: Board, wordle: Wordle }>(),
+        ['hydrate success']: props<{ gameBoard: Board, solution: string }>(),
 
         ['get word']: emptyProps(),
         ['get word failure']: props<{ error: string }>(),

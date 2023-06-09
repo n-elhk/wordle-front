@@ -1,27 +1,31 @@
 <div *ngIf="solution$ | async as solution" id="waiting">
-    <p class="text" *ngIf="status === 'WIN'">C'est gagné pour aujourd'hui !</p>
-    <p class="text" *ngIf="status === 'LOOSE'">C'est perdu pour aujourd'hui !</p>
+  <p class="text" *ngIf="status === 'WIN'">C'est gagné pour aujourd'hui !</p>
+  <p class="text" *ngIf="status === 'LOOSE'">C'est perdu pour aujourd'hui !</p>
 
-    <p class="text solution">
-        <span *ngFor="let s of solution.split('')">{{s}}</span>
-    </p>
+  <p class="text solution">
+    <span *ngFor="let s of solution.split('')">{{ s }}</span>
+  </p>
 
-    <div class="text date-container">
-        <p class="next-word">Prochain mot dans: </p>
-        <p>{{ countdown$ | async }}</p>
+  <div class="text date-container">
+    <p class="next-word">Prochain mot dans:</p>
+    <p>{{ countdown() }}</p>
+  </div>
+
+  <div class="share-container">
+    <div>
+      <a
+        href="javascript:void(0)"
+        (click)="clipBord()"
+        awesomeTooltip="Lien copié"
+        [disabled]="true"
+        aria-label="Button that displays a tooltip that can be programmatically disabled"
+        [cdkCopyToClipboard]="url"
+        class="share-button"
+        >Partager</a
+      >
     </div>
-
-    <div class="share-container">
-        <div>
-            <a  href="javascript:void(0)" 
-                (click)="clipBord()"
-                awesomeTooltip="Lien copié"
-                [disabled]="true"
-                aria-label="Button that displays a tooltip that can be programmatically disabled"
-                [cdkCopyToClipboard]="url" class="share-button">Partager</a>
-        </div>
-        <div>
-            <a class="share-button" [href]="url">Tweeter</a>
-        </div>
+    <div>
+      <a class="share-button" [href]="url">Tweeter</a>
     </div>
+  </div>
 </div>

@@ -1,51 +1,58 @@
-import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { environment } from '@env';
-import { Wordle } from '@models/wordle';
-import { Observable } from 'rxjs';
+import { Injectable, inject } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { WordleStatGame } from '@models/statistic';
 import { Attempt, Board, KeyOfAttempt } from '@models';
 import { CHRISTIAN_WORDS, DICTIONARY_WORDS } from '../../dictionary/dictionary';
+import { StorageService } from '@services/storage/storage.service';
+import { StorageKey } from '@models/storage';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
+  /** Injection of {@link StorageService}. */
+  private storageService = inject(StorageService);
+
   private wordDict = new Set(DICTIONARY_WORDS.concat(CHRISTIAN_WORDS));
-  private urlServer = environment.urlServer;
 
-  constructor(
-    private httpClient: HttpClient,
-  ) { }
-
-  // public init(): Observable<boolean> {
-  //   return this.getWordListFile();
-  // }
-
-  public getWordle(): Observable<Wordle> {
-    return this.httpClient.get<Wordle>(`${this.urlServer}/word`);
+  private getRandomNumber(min: number, max: number): number {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  // public getWordListFile(): Observable<boolean> {
-  //   return this.httpClient.get('assets/wordlist.txt', { responseType: 'blob' }).pipe(
-  //     map((res) => {
-  //       const reader = new FileReader();
-  //       reader.onload = () => {
-  //         if (reader.result) {
-  //           const txt = reader.result.toString().trim();
-  //           const texts = txt.replace(/\r\n/g, '\n').split('\n');
-  //           this.wordDict = new Set(texts);
-  //         }
-  //       }
-  //       reader.readAsText(res);
-  //       return true;
-  //     })
-  //   );
-  // }
+  /**
+   * @description Server is down, play localy
+   * @returns Wordle object
+   */
+  public getWordle(): Observable<string> {
+    if (this.storageService.checkLastSaved()) {
+      const random = this.getRandomNumber(0, CHRISTIAN_WORDS.length - 1);
+
+      const word = CHRISTIAN_WORDS[random];
+
+      // const date = new Date();
+      // date.setDate(new Date().getDate() - 1);
+      // date.setMinutes(new Date().getMinutes() + 1);
+
+      const b64 = window.btoa(word);
+      this.storageService.setStorage(StorageKey.Answer, b64);
+      this.storageService.setStorage(StorageKey.Date, new Date().getTime());
+      // this.storageService.setStorage(StorageKey.Date, date.getTime());
+      this.storageService.resetStorage(StorageKey.BoardState);
+
+      return of(b64);
+    }
+
+    return of(this.storageService.getStorage<string>(StorageKey.Answer));
+  }
 
   public checkWord(boardState: Board, solution: string): Board {
-
-    const { attempts, evaluations, correctLetters, absentLetters, partialLetters } = { ...boardState };
+    const {
+      attempts,
+      evaluations,
+      correctLetters,
+      absentLetters,
+      partialLetters,
+    } = { ...boardState };
     let { rowIndex } = { ...boardState };
 
     const word = attempts[rowIndex];
@@ -61,24 +68,36 @@ export class GameService {
 
     Array.from(word).forEach((e, i) => {
       const arrName = newEval[rowIndex][i];
-      if (arr[arrName].indexOf(e) === -1) { arr[arrName].push(e); }
+      if (arr[arrName].indexOf(e) === -1) {
+        arr[arrName].push(e);
+      }
     });
 
-    const { status, index } = this.checkGameStatus(rowIndex, attempts[rowIndex], solution);
+    const { status, index } = this.checkGameStatus(
+      rowIndex,
+      attempts[rowIndex],
+      solution
+    );
 
     return {
-      ...boardState, evaluations: newEval, gameStatus: status, rowIndex: index,
-      absentLetters: arr.absent, correctLetters: arr.correct, partialLetters: arr.partial
+      ...boardState,
+      evaluations: newEval,
+      gameStatus: status,
+      rowIndex: index,
+      absentLetters: arr.absent,
+      correctLetters: arr.correct,
+      partialLetters: arr.partial,
     };
   }
 
   public checkGameStatus(rowIndex: number, word: string, solution: string) {
-    if (word === solution) { return { status: 'WIN', index: rowIndex } as const; }
-
-    else if (rowIndex < 5) {
+    if (word === solution) {
+      return { status: 'WIN', index: rowIndex } as const;
+    } else if (rowIndex < 5) {
       return { status: 'IN_PROGRESS', index: rowIndex + 1 } as const;
+    } else {
+      return { status: 'LOOSE', index: rowIndex } as const;
     }
-    else { return { status: 'LOOSE', index: rowIndex } as const; }
   }
 
   private computeColors(targetWord: string, guess: string): KeyOfAttempt[] {
@@ -112,23 +131,18 @@ export class GameService {
         colors[i] = Attempt.absent;
       }
     }
-    // return colors.join('');
     return colors;
   }
 
   public checkLastSaved(date: number) {
     const now = new Date();
     const currentDate = new Date(date);
-    return (currentDate.getDay() !== now.getDay() ||
+    return (
+      currentDate.getDay() !== now.getDay() ||
       currentDate.getMonth() !== now.getMonth() ||
-      currentDate.getFullYear() !== now.getFullYear());
+      currentDate.getFullYear() !== now.getFullYear()
+    );
   }
-  // function test(targetWord: string, guess: string, expectedOutput: string) {
-  //   const actualOutput = computeColors(targetWord, guess);
-  //   console.log(
-  //     expectedOutput === actualOutput, { targetWord, guess, expectedOutput, actualOutput }
-  //   );
-  // }
 
   public isInWordeList(word: string): boolean {
     return this.wordDict.has(word);
@@ -144,26 +158,39 @@ export class GameService {
   }
 
   public bestStreak(arr: WordleStatGame[]): number[] {
-    return arr.reduce((res, n) => {
-      if (n.won) { res[res.length - 1]++; }
-      else { res.push(0); }
-      return res;
-    }, [0]);
+    return arr.reduce(
+      (res, n) => {
+        if (n.won) {
+          res[res.length - 1]++;
+        } else {
+          res.push(0);
+        }
+        return res;
+      },
+      [0]
+    );
   }
 
-
   public bestAttempts(arr: WordleStatGame[]): number[] {
-    return arr.reduce((acc, curr) => {
-      const nbAttempts = curr.nbAttempts === 6 && curr.won ? curr.nbAttempts -1 :  curr.nbAttempts;
-      acc[nbAttempts]++;
-      return acc;
-    }, [0, 0, 0, 0, 0, 0, 0] as number[]);
+    return arr.reduce(
+      (acc, curr) => {
+        const nbAttempts =
+          curr.nbAttempts === 6 && curr.won
+            ? curr.nbAttempts - 1
+            : curr.nbAttempts;
+        acc[nbAttempts]++;
+        return acc;
+      },
+      [0, 0, 0, 0, 0, 0, 0] as number[]
+    );
   }
 
   public currentStreak(arr: WordleStatGame[]): number {
     let won = 0;
     for (const e of arr) {
-      if (!e.won) { return won; }
+      if (!e.won) {
+        return won;
+      }
       won += 1;
     }
     return won;
@@ -171,8 +198,9 @@ export class GameService {
 
   public percentWin(arr: WordleStatGame[]): number {
     const wonsLength = arr.filter((e) => e.won).length;
-    if (!wonsLength) { return wonsLength; }
+    if (!wonsLength) {
+      return wonsLength;
+    }
     return (wonsLength / arr.length) * 100;
   }
-
 }

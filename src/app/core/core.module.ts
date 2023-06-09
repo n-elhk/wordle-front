@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { AppStoreModule } from '@store/store.module';
-import { LetModule, PushModule } from '@ngrx/component';
+import { LetDirective, PushPipe } from '@ngrx/component';
 
 @NgModule({
   imports: [
     AppStoreModule,
-    LetModule, 
-    PushModule,
+    LetDirective, 
+    PushPipe,
   ],
   exports: [
     AppStoreModule,
-    LetModule, 
-    PushModule,
+    LetDirective, 
+    PushPipe,
   ]
 })
 export class CoreModule { }

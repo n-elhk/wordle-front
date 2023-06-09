@@ -24,5 +24,6 @@ export const getWordleMock = () => ({
         rowIndex: 0,
     },
     [StorageKey.Stat]: { games: [] },
-    [StorageKey.Answer]: ''
+    [StorageKey.Answer]: '',
+    [StorageKey.Date]: new Date().getTime(),
 })

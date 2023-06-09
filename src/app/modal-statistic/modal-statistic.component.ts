@@ -18,5 +18,5 @@ export class ModalStatisticComponent extends ShareDirective {
   protected bestStreak = this.gameService.bestStreak(this.data.games)[0];
   protected currentStreak = this.gameService.currentStreak(this.data.games);
   protected percentWin = Math.round(this.gameService.percentWin(this.data.games));
-  protected bestAttempts: number[] = this.gameService.bestAttempts(this.data.games);
+  protected bestAttempts = this.gameService.bestAttempts(this.data.games);
 }

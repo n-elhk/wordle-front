@@ -6,6 +6,7 @@ import { KeyboardService } from '@services/keyboard/keyboard.service';
   standalone: true,
 })
 export class KeyboardDirective {
+  /** Injection of {@link KeyboardService}. */
   private keyboardService = inject(KeyboardService);
 
   private element = inject<ElementRef<HTMLButtonElement>>(ElementRef);

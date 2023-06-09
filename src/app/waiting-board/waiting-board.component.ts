@@ -12,6 +12,7 @@ import { AwesomeTooltipDirective } from '@shared/directives/tooltip.directive';
 export class WaitingBoardComponent extends ShareDirective {
 
   @Input() public status!: GameStatus;
+
   @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
 
   clipBord(): void {
