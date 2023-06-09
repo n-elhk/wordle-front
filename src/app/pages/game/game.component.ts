@@ -30,20 +30,20 @@ import {
 import { KeyboardService } from '@services/keyboard/keyboard.service';
 import { StorageService } from '@services/storage/storage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { untilDestroyed } from '../common/functions/destroy-ref';
+import { untilDestroyed } from '@common/functions';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { LetDirective } from '@ngrx/component';
 import { LetterPipe } from '@common/pipes';
 import { KeyboardDirective } from '@common/directives';
+import { SvgIcon } from "@components/icon/icon";
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [LetterPipe, CommonModule, MatIconModule, LetDirective],
-  standalone: true,
+    selector: 'wd-game',
+    templateUrl: './game.component.html',
+    styleUrls: ['./game.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: true,
+    imports: [LetterPipe, CommonModule, LetDirective, SvgIcon]
 })
 export class GameComponent implements OnInit, AfterViewInit {
   private destroy$ = untilDestroyed();

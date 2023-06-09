@@ -7,7 +7,7 @@ import { GameService } from '@services/game/game.service';
 import { POPUP_DATA } from '@services/popup/popup.service';
 
 @Component({
-  selector: 'app-modal-statistic',
+  selector: 'wd-modal-statistic',
   templateUrl: './modal-statistic.component.html',
   styleUrls: ['./modal-statistic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

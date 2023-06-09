@@ -11,21 +11,21 @@ import { selectGameStatus } from './core/store/wordle';
 
 import { OverlayService } from '@services/popup/popup.service';
 import { CommonModule } from '@angular/common';
-import { MatIconModule } from '@angular/material/icon';
 import { PushPipe } from '@ngrx/component';
 import { GameComponent } from './pages/game/game.component';
 import { WaitingBoardComponent } from './pages/waiting-board/waiting-board.component';
 import { HelpComponent, ModalStatisticComponent } from '@components/modals';
+import { SvgIcon } from '@components/icon';
 
 @Component({
-  selector: 'app-root',
+  selector: 'wd-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [
     CommonModule,
-    MatIconModule,
+    SvgIcon,
     PushPipe,
     GameComponent,
     WaitingBoardComponent,

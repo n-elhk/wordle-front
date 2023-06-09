@@ -10,7 +10,7 @@ import { AwesomeTooltipDirective, ShareDirective } from '@common/directives';
 import { GameStatus } from '@models';
 
 @Component({
-  selector: 'app-waiting-board',
+  selector: 'wd-waiting-board',
   templateUrl: './waiting-board.component.html',
   styleUrls: ['./waiting-board.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,

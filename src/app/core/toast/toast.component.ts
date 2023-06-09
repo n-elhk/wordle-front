@@ -8,7 +8,7 @@ import { map, timer, merge, of, firstValueFrom } from 'rxjs';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-toast',
+  selector: 'wd-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['toast.component.scss'],
   imports: [

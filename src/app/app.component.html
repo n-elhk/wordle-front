@@ -2,17 +2,16 @@
   <div class="title">
     <span>{{ title }}</span>
   </div>
-  
+
   <div class="navivations--container">
-    <mat-icon (click)="openStatDialog()">bar_chart</mat-icon>
-    <mat-icon (click)="openHelpDialog()">help</mat-icon>
+    <svg-icon svgName="bar_chart" (click)="openStatDialog()" />
+    <svg-icon svgName="help" (click)="openHelpDialog()" />
   </div>
 </div>
 
-
 <div *ngIf="status$ | ngrxPush as status">
   <div [ngSwitch]="status">
-    <app-game *ngSwitchCase="'IN_PROGRESS'"/>
-    <app-waiting-board [status]="status" *ngSwitchDefault/>
+    <wd-game *ngSwitchCase="'IN_PROGRESS'" />
+    <wd-waiting-board [status]="status" *ngSwitchDefault />
   </div>
 </div>
