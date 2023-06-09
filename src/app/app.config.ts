@@ -35,6 +35,7 @@ export function initializeIcon(
       { name: 'delete', path: `${baseSvg}/delete.svg` },
       { name: 'bar_chart', path: `${baseSvg}/bar_chart.svg` },
       { name: 'help', path: `${baseSvg}/help.svg` },
+      { name: 'close', path: `${baseSvg}/close.svg` },
     ];
 
     icons.forEach((icon) => {

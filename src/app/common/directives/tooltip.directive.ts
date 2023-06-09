@@ -1,4 +1,5 @@
 import {
+  FlexibleConnectedPositionStrategy,
   Overlay,
   OverlayPositionBuilder,
   OverlayRef,
@@ -31,10 +32,19 @@ export class AwesomeTooltipDirective {
 
   @Input() public disabled = false;
 
-  private overlayRef!: OverlayRef;
+  @Input() public withClick = false;
 
-  public ngOnInit(): void {
-    const positionStrategy = this.overlayPositionBuilder
+  private overlayRef: OverlayRef | undefined = undefined;
+
+  private get canOpenTooltip() {
+    if (!this.disabled && !this.overlayRef) {
+      return true;
+    }
+    return false;
+  }
+
+  private get overlayOption(): FlexibleConnectedPositionStrategy {
+    return this.overlayPositionBuilder
       .flexibleConnectedTo(this.elementRef)
       .withPositions([
         {
@@ -45,25 +55,37 @@ export class AwesomeTooltipDirective {
           offsetY: -8,
         },
       ]);
-
-    this.overlayRef = this.overlay.create({ positionStrategy });
   }
 
-  @HostListener('mouseenter')
   public show(): void {
-    if (this.disabled) {
+    if (!this.canOpenTooltip) {
       return;
     }
+
+    const positionStrategy = this.overlayOption;
+
+    this.overlayRef = this.overlay.create({ positionStrategy });
+
     const tooltipRef = this.overlayRef.attach(
       new ComponentPortal(AwesomeTooltipComponent)
     );
     tooltipRef.instance.text = this.text;
   }
 
+  @HostListener('mouseenter')
+  private showlistner(): void {
+    if (this.withClick || !this.canOpenTooltip) {
+      return;
+    }
+    this.show();
+  }
+
   @HostListener('mouseout')
   public hide(): void {
-    if (this.overlayRef.hasAttached()) {
+    if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();
     }
+
+    this.overlayRef = undefined;
   }
 }

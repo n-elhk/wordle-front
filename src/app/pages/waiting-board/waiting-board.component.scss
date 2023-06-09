@@ -42,39 +42,19 @@
     text-align: center;
 
     .share-button {
-      // margin-top: 1rem;
-      // padding: 1rem 0.5rem;
-      // display: flex;
-      // flex-direction: row;
-      // justify-content: center;
-      // align-items: center;
-      // cursor: pointer;
-      // color: #312e81;
-      // text-transform: uppercase;
-      // user-select: none;
-      // background-color: #fff;
-      // box-shadow: 0 6px #07256c;
-      // transition: all .1s ease;
-      // border-radius: 0.5rem;
-      // font-size: 1.25rem;
-      // line-height: 1.75rem;
-      // font-weight: 700;
-
       margin-top: 1rem;
-      padding: 1rem 0.5rem;
+      padding: 0.5rem;
       display: flex;
       flex-direction: row;
       justify-content: center;
       align-items: center;
       color: white;
+      text-decoration: none;
       text-transform: uppercase;
-      box-shadow: 0 6px var(--correct-color);
       transition: all 0.1s ease;
       border-radius: 0.5rem;
       background-color: var(--absent-color);
-      font-size: 1.25rem;
-      line-height: 1.75rem;
-      font-weight: 700;
+      font-weight: 500;
     }
   }
 }

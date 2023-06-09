@@ -32,7 +32,6 @@ import { StorageService } from '@services/storage/storage.service';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { untilDestroyed } from '@common/functions';
 import { CommonModule } from '@angular/common';
-import { LetDirective } from '@ngrx/component';
 import { LetterPipe } from '@common/pipes';
 import { KeyboardDirective } from '@common/directives';
 import { SvgIcon } from "@components/icon/icon";
@@ -43,7 +42,7 @@ import { SvgIcon } from "@components/icon/icon";
     styleUrls: ['./game.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [LetterPipe, CommonModule, LetDirective, SvgIcon, KeyboardDirective]
+    imports: [LetterPipe, CommonModule, SvgIcon, KeyboardDirective]
 })
 export class GameComponent implements OnInit, AfterViewInit {
   private destroy$ = untilDestroyed();
@@ -115,10 +114,10 @@ export class GameComponent implements OnInit, AfterViewInit {
       .subscribe();
   }
 
-  // @HostListener('window:storage', ['$event'])
-  // private touch(event: StorageEvent): void {
-  //   if (event.key === StorageKey.BoardState) {
-  //     this.storageService.removeItem(event.key);
-  //   }
-  // }
+  @HostListener('window:storage', ['$event'])
+  private touch(event: StorageEvent): void {
+    if (event.key === StorageKey.BoardState) {
+      this.storageService.removeItem(event.key);
+    }
+  }
 }

@@ -1,6 +1,11 @@
-import { Directive, inject, OnDestroy, OnInit } from '@angular/core';
+import {
+  Directive,
+  inject,
+  OnInit,
+  signal,
+  ViewChild,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
-import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { SquareAttempt } from '@models/board';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
@@ -13,41 +18,43 @@ import {
   selectSolution,
   wordleActions,
 } from '@store/wordle';
-import {
-  combineLatest,
-  interval,
-  map,
-  merge,
-  Observable,
-  Subject,
-  takeUntil,
-} from 'rxjs';
+import { combineLatest, interval, map, merge, Observable } from 'rxjs';
+import { untilDestroyed } from '@common/functions';
+import { AwesomeTooltipDirective } from './tooltip.directive';
 
 @Directive({
   standalone: true,
 })
-export class ShareDirective implements OnInit, OnDestroy {
-  private domSanitizer = inject(DomSanitizer);
-  protected store = inject(Store);
-  protected storageService = inject(StorageService);
+export class ShareDirective implements OnInit {
+  /** Injection of {@link Store}. */
+  private store = inject(Store);
 
-  public destroy$ = new Subject<void>();
+  /** Injection of {@link StorageService}. */
+  private storageService = inject(StorageService);
 
-  protected tweetText = '';
+  @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
+
+  private timestamp = signal(
+    this.storageService.getStorage<number>(StorageKey.Date)
+  );
+
+  private destroy$ = untilDestroyed();
+
   protected url = '';
-  protected safeUrl!: SafeUrl;
 
   protected countdown = toSignal(this.countdown$());
-  protected status$ = this.store.select(selectGameStatus);
-  protected solution$ = this.store.select(selectSolution);
+
+  protected solution = toSignal(this.store.select(selectSolution));
+
+  protected status = toSignal(this.store.select(selectGameStatus));
 
   public ngOnInit(): void {
-    merge(this.getLink()).pipe(takeUntil(this.destroy$)).subscribe();
+    merge(this.getLink()).pipe(this.destroy$()).subscribe();
   }
 
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  public clipBord(): void {
+    this.tooltip.show();
+    setTimeout(() => this.tooltip.hide(), 500);
   }
 
   public getLink(): Observable<void> {
@@ -56,7 +63,7 @@ export class ShareDirective implements OnInit, OnDestroy {
       this.store.select(selectRowIndex),
     ]).pipe(
       map(([evaluations, rowIndex]) => {
-        let tweetText = `Christus (@Christus) ${rowIndex}/${evaluations.length} \n`;
+        let tweetText = `wordle (@wordle) ${rowIndex}/${evaluations.length} \n`;
 
         for (let index = 0; index < rowIndex + 1; index++) {
           const attempts = evaluations[index];
@@ -66,7 +73,6 @@ export class ShareDirective implements OnInit, OnDestroy {
           tweetText = tweetText + `\n`;
         }
         this.url = `https://twitter.com/intent/tweet?text=${tweetText}&related=tusmo_xyz,neurosis_44`;
-        this.safeUrl = this.domSanitizer.bypassSecurityTrustUrl(this.url);
       })
     );
   }
@@ -94,9 +100,7 @@ export class ShareDirective implements OnInit, OnDestroy {
   private countdown$(): Observable<string> {
     return interval(1000).pipe(
       map(() => {
-        const timestamp = this.storageService.getStorage<number>(
-          StorageKey.Date
-        );
+        const timestamp = this.timestamp();
         const { hours, minutes, seconds } = this.countdownToDate(timestamp);
 
         if (hours + minutes + seconds === 1) {

@@ -11,8 +11,7 @@ import {
   Injector,
   TemplateRef,
   StaticProvider,
-  Inject,
-  Optional,
+  inject,
 } from '@angular/core';
 import { of } from 'rxjs';
 
@@ -21,7 +20,9 @@ import { PopupRef } from './popup-ref';
 import { OverlayContainerComponent } from '@components/overlay-container.component';
 
 export const POPUP_DATA = new InjectionToken<unknown>('PopupData');
-export const DEFAULT_POPUP_CONFIG = new InjectionToken<unknown>('DEFAULT_POPUP_CONFIG');
+export const DEFAULT_POPUP_CONFIG = new InjectionToken<unknown>(
+  'DEFAULT_POPUP_CONFIG'
+);
 
 /**
  * This services exposes an API to open popups and manage them easily.
@@ -30,11 +31,14 @@ export const DEFAULT_POPUP_CONFIG = new InjectionToken<unknown>('DEFAULT_POPUP_C
   providedIn: 'root',
 })
 export class OverlayService {
-  constructor(
-    @Optional() @Inject(DEFAULT_POPUP_CONFIG) private defaultOptions: PopupConfig,
-    private overlay: Overlay,
-    private injector: Injector,
-  ) { }
+  /** Injection of {@link PopupConfig }. */
+  private defaultOptions = inject<PopupConfig | undefined>(DEFAULT_POPUP_CONFIG, { optional: true });
+
+  /** Injection of {@link Overlay}. */
+  private overlay = inject(Overlay);
+
+  /** Injection of {@link Injector}. */
+  private injector = inject(Injector);
 
   /**
    * Opens a popup within an overlay.
@@ -50,12 +54,20 @@ export class OverlayService {
    */
   public open<T, D = unknown, R = unknown>(
     templateRefOrCmpClass: ComponentType<T> | TemplateRef<T>,
-    config?: PopupConfig<D>,
+    config?: PopupConfig<D>
   ): PopupRef<T, R> {
-    config = this.mergeWithDefaultConfig(config, this.defaultOptions || new PopupConfig());
+    config = this.mergeWithDefaultConfig(
+      config,
+      this.defaultOptions || new PopupConfig()
+    );
     const overlayRef = this.createOverlay(config),
       popupContainer = this.attachPopupContainer(overlayRef, config),
-      popupRef = this.attachPopupContent<T, R>(templateRefOrCmpClass, popupContainer, overlayRef, config);
+      popupRef = this.attachPopupContent<T, R>(
+        templateRefOrCmpClass,
+        popupContainer,
+        overlayRef,
+        config
+      );
 
     console.info(`OverlayService.Open: open overlay.`);
     return popupRef;
@@ -70,7 +82,10 @@ export class OverlayService {
    * @param defaultOptions A popup Configuration object.
    * @returns Another Popup configuration object.
    */
-  private mergeWithDefaultConfig<A>(config?: PopupConfig<A>, defaultOptions?: PopupConfig): PopupConfig<A> {
+  private mergeWithDefaultConfig<A>(
+    config?: PopupConfig<A>,
+    defaultOptions?: PopupConfig
+  ): PopupConfig<A> {
     return { ...defaultOptions, ...config } as PopupConfig<A>;
   }
 
@@ -95,19 +110,24 @@ export class OverlayService {
    * @param config Popup configuration object.
    * @returns A PopupContainerComponent
    */
-  private attachPopupContainer(overlay: OverlayRef, config?: PopupConfig): OverlayContainerComponent {
+  private attachPopupContainer(
+    overlay: OverlayRef,
+    config?: PopupConfig
+  ): OverlayContainerComponent {
     const userInjector = config?.viewContainerRef?.injector;
     const injector = Injector.create({
       parent: userInjector ?? this.injector,
-      providers: [{
-        provide: POPUP_DATA,
-        useValue: config,
-      }],
+      providers: [
+        {
+          provide: POPUP_DATA,
+          useValue: config,
+        },
+      ],
     });
     const dialogContainerPortal = new ComponentPortal(
       OverlayContainerComponent,
       config?.viewContainerRef,
-      injector,
+      injector
     );
     const containerRef = overlay.attach(dialogContainerPortal);
 
@@ -128,9 +148,14 @@ export class OverlayService {
     componentOrTemplateRef: ComponentType<T> | TemplateRef<T>,
     popupContainer: OverlayContainerComponent,
     overlayRef: OverlayRef,
-    config: PopupConfig,
+    config: PopupConfig
   ): PopupRef<T, R> {
-    const popupRef = new PopupRef<T, R>(overlayRef, popupContainer, config.closeOnBackdropClick, config.id);
+    const popupRef = new PopupRef<T, R>(
+      overlayRef,
+      popupContainer,
+      config.closeOnBackdropClick,
+      config.id
+    );
 
     if (componentOrTemplateRef instanceof TemplateRef) {
       popupContainer.attachTemplatePortal(
@@ -140,13 +165,17 @@ export class OverlayService {
           {
             $implicit: config.data,
             popupRef,
-          } as unknown as T,
-        ),
+          } as unknown as T
+        )
       );
     } else {
       const injector = this.createInjector(config, popupRef, popupContainer);
       const contentRef = popupContainer.attachComponentPortal(
-        new ComponentPortal(componentOrTemplateRef, config.viewContainerRef, injector),
+        new ComponentPortal(
+          componentOrTemplateRef,
+          config.viewContainerRef,
+          injector
+        )
       );
 
       popupRef.componentInstance = contentRef.instance;
@@ -164,7 +193,8 @@ export class OverlayService {
   private getOverlayConfig(config: PopupConfig): OverlayConfig {
     /** block make visible scroll bar. */
     const scrollStrategy = this.overlay.scrollStrategies.noop();
-    const positionStrategy = this.overlay.position()
+    const positionStrategy = this.overlay
+      .position()
       .global()
       .centerHorizontally()
       .centerVertically();
@@ -172,16 +202,22 @@ export class OverlayService {
     return new OverlayConfig({
       scrollStrategy,
       positionStrategy,
-      ...(('panelClass' in config) ? { panelClass: config.panelClass } : undefined),
-      ...(('direction' in config) ? { direction: config.direction } : undefined),
-      ...(('hasBackdrop' in config) ? { hasBackdrop: config.hasBackdrop } : undefined),
-      ...(('backdropClass' in config) ? { backdropClass: config.backdropClass } : undefined),
-      ...(('width' in config) ? { width: config.width } : undefined),
-      ...(('height' in config) ? { height: config.height } : undefined),
-      ...(('minWidth' in config) ? { minWidth: config.minWidth } : undefined),
-      ...(('minHeight' in config) ? { minHeight: config.minHeight } : undefined),
-      ...(('maxWidth' in config) ? { maxWidth: config.maxWidth } : undefined),
-      ...(('maxHeight' in config) ? { maxHeight: config.maxHeight } : undefined),
+      ...('panelClass' in config
+        ? { panelClass: config.panelClass }
+        : undefined),
+      ...('direction' in config ? { direction: config.direction } : undefined),
+      ...('hasBackdrop' in config
+        ? { hasBackdrop: config.hasBackdrop }
+        : undefined),
+      ...('backdropClass' in config
+        ? { backdropClass: config.backdropClass }
+        : undefined),
+      ...('width' in config ? { width: config.width } : undefined),
+      ...('height' in config ? { height: config.height } : undefined),
+      ...('minWidth' in config ? { minWidth: config.minWidth } : undefined),
+      ...('minHeight' in config ? { minHeight: config.minHeight } : undefined),
+      ...('maxWidth' in config ? { maxWidth: config.maxWidth } : undefined),
+      ...('maxHeight' in config ? { maxHeight: config.maxHeight } : undefined),
     });
   }
 
@@ -197,7 +233,7 @@ export class OverlayService {
   private createInjector<T, R>(
     config: PopupConfig,
     popupRef: PopupRef<T, R>,
-    popupContainer: OverlayContainerComponent,
+    popupContainer: OverlayContainerComponent
   ): Injector {
     const userInjector = config?.viewContainerRef?.injector;
     const providers: StaticProvider[] = [
@@ -208,7 +244,10 @@ export class OverlayService {
 
     if (
       config.direction &&
-      (!userInjector || !userInjector.get<Directionality | null>(Directionality, null, { optional: true }))
+      (!userInjector ||
+        !userInjector.get<Directionality | null>(Directionality, null, {
+          optional: true,
+        }))
     ) {
       providers.push({
         provide: Directionality,

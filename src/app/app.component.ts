@@ -4,6 +4,7 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { StorageService } from './core/services/storage/storage.service';
@@ -46,7 +47,7 @@ export class AppComponent {
 
   public title = 'wordle';
 
-  protected status$ = this.store.select(selectGameStatus);
+  protected status = toSignal(this.store.select(selectGameStatus));
 
   public openStatDialog(): void {
     const wordleState = this.storageService.getStorage(StorageKey.Stat);

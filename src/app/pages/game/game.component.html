@@ -1,7 +1,6 @@
-<!-- <div *ngrxLet="game$ as game" id="game"> -->
 <div id="game">
   <div
-    *ngrxLet="solution() as word"
+    *ngIf="solution() as word"
     class="grid-container"
     [style.--col-grid]="word.length"
   >
@@ -72,7 +71,6 @@
         class="key big"
       >
         <svg-icon svgName="delete" />
-
       </button>
     </div>
   </div>
