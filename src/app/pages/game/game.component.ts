@@ -43,7 +43,7 @@ import { SvgIcon } from "@components/icon/icon";
     styleUrls: ['./game.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush,
     standalone: true,
-    imports: [LetterPipe, CommonModule, LetDirective, SvgIcon]
+    imports: [LetterPipe, CommonModule, LetDirective, SvgIcon, KeyboardDirective]
 })
 export class GameComponent implements OnInit, AfterViewInit {
   private destroy$ = untilDestroyed();

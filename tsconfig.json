@@ -20,9 +20,6 @@
     "target": "ES2022",
     "module": "es2020",
     "paths": {
-      "@env": [
-        "src/environments/environment.ts"
-      ],
       "@models": [
         "src/app/core/models/index.ts"
       ],
