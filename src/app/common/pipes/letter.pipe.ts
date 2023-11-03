@@ -1,8 +1,6 @@
 import { inject, Pipe, PipeTransform } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { Store } from '@ngrx/store';
 import { selectAttemptsState, selectRowIndex } from '@store/wordle';
-import { firstValueFrom, forkJoin, map, Observable } from 'rxjs';
 
 @Pipe({
   name: 'letter',
@@ -11,16 +9,11 @@ import { firstValueFrom, forkJoin, map, Observable } from 'rxjs';
 })
 export class LetterPipe implements PipeTransform {
   /** Injection of {@link Store}. */
-  private store = inject(Store);
+  private readonly store = inject(Store);
 
-  /** Injection of {@link Store}. */
-  private attempts = toSignal(this.store.select(selectAttemptsState), {
-    initialValue: [] as string[],
-  });
+  private readonly attempts = this.store.selectSignal(selectAttemptsState);
 
-  private rowIndex = toSignal(this.store.select(selectRowIndex), {
-    initialValue: 0,
-  });
+  private readonly rowIndex = this.store.selectSignal(selectRowIndex);
 
   public transform(value: string, index: number, index2: number): string {
     const attempts = this.attempts();

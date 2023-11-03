@@ -1,10 +1,4 @@
-import {
-  Directive,
-  inject,
-  OnInit,
-  signal,
-  ViewChild,
-} from '@angular/core';
+import { Directive, inject, signal, ViewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SquareAttempt } from '@models/board';
 import { StorageKey } from '@models/storage';
@@ -18,46 +12,39 @@ import {
   selectSolution,
   wordleActions,
 } from '@store/wordle';
-import { combineLatest, interval, map, merge, Observable } from 'rxjs';
-import { untilDestroyed } from '@common/functions';
+import { combineLatest, interval, map, Observable } from 'rxjs';
 import { AwesomeTooltipDirective } from './tooltip.directive';
 
 @Directive({
   standalone: true,
 })
-export class ShareDirective implements OnInit {
+export class ShareDirective {
   /** Injection of {@link Store}. */
-  private store = inject(Store);
+  private readonly store = inject(Store);
 
   /** Injection of {@link StorageService}. */
-  private storageService = inject(StorageService);
+  private readonly storageService = inject(StorageService);
 
   @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
 
-  private timestamp = signal(
+  private readonly timestamp = signal(
     this.storageService.getStorage<number>(StorageKey.Date)
   );
 
-  private destroy$ = untilDestroyed();
+  public readonly url = toSignal(this.getLink(), { initialValue: '' });
 
-  protected url = '';
+  public readonly countdown = toSignal(this.countdown$());
 
-  protected countdown = toSignal(this.countdown$());
+  public readonly solution = this.store.selectSignal(selectSolution);
 
-  protected solution = toSignal(this.store.select(selectSolution));
-
-  protected status = toSignal(this.store.select(selectGameStatus));
-
-  public ngOnInit(): void {
-    merge(this.getLink()).pipe(this.destroy$()).subscribe();
-  }
+  public readonly status = this.store.selectSignal(selectGameStatus);
 
   public clipBord(): void {
     this.tooltip.show();
     setTimeout(() => this.tooltip.hide(), 500);
   }
 
-  public getLink(): Observable<void> {
+  private getLink() {
     return combineLatest([
       this.store.select(selectEvaluations),
       this.store.select(selectRowIndex),
@@ -72,7 +59,7 @@ export class ShareDirective implements OnInit {
           });
           tweetText = tweetText + `\n`;
         }
-        this.url = `https://twitter.com/intent/tweet?text=${tweetText}&related=tusmo_xyz,neurosis_44`;
+        return `https://twitter.com/intent/tweet?text=${tweetText}&related=tusmo_xyz,neurosis_44`;
       })
     );
   }

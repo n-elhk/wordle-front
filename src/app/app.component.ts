@@ -4,7 +4,6 @@ import {
   ViewContainerRef,
   inject,
 } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { StorageService } from './core/services/storage/storage.service';
@@ -34,20 +33,20 @@ import { SvgIcon } from '@components/icon';
 })
 export class AppComponent {
   /** Injection of {@link FormBuilder}. */
-  private store = inject(Store);
+  private readonly store = inject(Store);
 
   /** Injection of {@link OverlayService}. */
-  private overlayService = inject(OverlayService);
+  private readonly overlayService = inject(OverlayService);
 
   /** Injection of {@link ViewContainerRef}. */
-  private vcr = inject(ViewContainerRef);
+  private readonly vcr = inject(ViewContainerRef);
 
   /** Injection of {@link StorageService}. */
-  private storageService = inject(StorageService);
+  private readonly storageService = inject(StorageService);
 
-  public title = 'wordle';
+  public readonly title = 'Le verbe';
 
-  protected status = toSignal(this.store.select(selectGameStatus));
+  public readonly status = this.store.selectSignal(selectGameStatus);
 
   public openStatDialog(): void {
     const wordleState = this.storageService.getStorage(StorageKey.Stat);

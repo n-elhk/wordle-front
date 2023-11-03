@@ -20,13 +20,13 @@ import { AwesomeTooltipComponent } from '@components/tooltip.component';
 })
 export class AwesomeTooltipDirective {
   /** Injection of {@link Overlay}. */
-  private overlay = inject(Overlay);
+  private readonly overlay = inject(Overlay);
 
   /** Injection of {@link OverlayPositionBuilder}. */
-  private overlayPositionBuilder = inject(OverlayPositionBuilder);
+  private readonly overlayPositionBuilder = inject(OverlayPositionBuilder);
 
   /** Injection of {@link ElementRef}. */
-  private elementRef = inject(ElementRef);
+  private readonly elementRef = inject(ElementRef);
 
   @Input('awesomeTooltip') public text = '';
 
