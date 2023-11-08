@@ -46,7 +46,7 @@ export class AppComponent {
 
   public readonly title = 'Le verbe';
 
-  public readonly status = this.store.selectSignal(selectGameStatus);
+  public readonly gameStatus = this.store.selectSignal(selectGameStatus);
 
   public openStatDialog(): void {
     const wordleState = this.storageService.getStorage(StorageKey.Stat);

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
-  forwardRef,
   inject,
 } from '@angular/core';
 import { AwesomeTooltipDirective, ShareDirective } from '@common/directives';
@@ -11,7 +10,7 @@ import { SvgIcon } from '@components/icon';
 import { WordleStat } from '@models/statistic';
 import { GameService } from '@services/game/game.service';
 import { PopupRef } from '@services/popup/popup-ref';
-import { OverlayService, POPUP_DATA } from '@services/popup/popup.service';
+import { POPUP_DATA } from '@services/popup/popup.service';
 
 @Component({
   selector: 'wd-modal-statistic',
@@ -29,19 +28,21 @@ import { OverlayService, POPUP_DATA } from '@services/popup/popup.service';
 })
 export class ModalStatisticComponent extends ShareDirective {
   /** Injection of {@link GameService}. */
-  private gameService = inject(GameService);
+  private readonly gameService = inject(GameService);
 
   /** Injection of {@link POPUP_DATA}. */
-  public data = inject<WordleStat>(POPUP_DATA);
+  public readonly data = inject<WordleStat>(POPUP_DATA);
 
   /** Injection of {@link PopupRef}. */
-  public popupRef = inject(PopupRef);
+  public readonly popupRef = inject(PopupRef);
 
-  public bestStreak = this.gameService.bestStreak(this.data.games)[0];
+  public readonly bestStreak = this.gameService.bestStreak(this.data.games)[0];
 
-  public currentStreak = this.gameService.currentStreak(this.data.games);
+  public readonly currentStreak = this.gameService.currentStreak(
+    this.data.games
+  );
 
   public percentWin = Math.round(this.gameService.percentWin(this.data.games));
 
-  public bestAttempts = this.gameService.bestAttempts(this.data.games);
+  public readonly bestAttempts = this.gameService.bestAttempts(this.data.games);
 }

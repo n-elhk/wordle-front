@@ -1,8 +1,7 @@
 import { createSelector } from '@ngrx/store';
 import { wordleFeature } from './wordle.reducer';
 
-export const { selectBoardState, selectSolution, selectLoading } =
-  wordleFeature;
+export const { selectBoardState, selectSolution, selectStatus } = wordleFeature;
 
 export const selectAttemptsState = createSelector(
   selectBoardState,

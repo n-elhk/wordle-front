@@ -4,14 +4,13 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { featureName } from './feature.name';
 import { wordleActions } from './wordle.actions';
 
-import { IBoardState } from './wordle.state';
+import { IBoardState, RequestStatus } from './wordle.state';
 
 export const initialState: IBoardState = {
   boardState: { ...BOARD },
   solution: '',
   rowError: '',
-  loading: false,
-  loaded: false,
+  status: RequestStatus.INITIAL,
   error: '',
 };
 
@@ -21,13 +20,12 @@ export const wordleFeature = createFeature({
     initialState,
     on(wordleActions.hydrate, (state) => ({
       ...state,
-      loading: true,
-      loaded: false,
+      status: RequestStatus.LOADING,
       error: '',
     })),
     on(wordleActions.hydrateFailure, (state, { error }) => ({
       ...state,
-      loading: false,
+      status: RequestStatus.ERROR,
       error,
     })),
     on(wordleActions.hydrateSuccess, (state, { gameBoard, solution }) => {
@@ -45,25 +43,28 @@ export const wordleFeature = createFeature({
         ...state,
         boardState: { ...gameBoard, evaluations },
         solution: solutionDecrypte,
-        loading: false,
-        loaded: true,
+        status: RequestStatus.LOADED,
         error: '',
       };
     }),
 
     on(wordleActions.getWord, (state) => ({
       ...state,
-      loading: true,
-      loaded: false,
+      status: RequestStatus.LOADING,
       error: '',
     })),
     on(wordleActions.getWordFailure, (state, { error }) => ({
       ...state,
-      loading: false,
+      status: RequestStatus.ERROR,
       error,
     })),
     on(wordleActions.getWordSuccess, (state, { word }) => {
-      return { ...state, loading: false, loaded: true, word, error: '' };
+      return {
+        ...state,
+        status: RequestStatus.LOADED,
+        word,
+        error: '',
+      };
     }),
 
     on(wordleActions.chooseLetter, (state, { letter }) => {
