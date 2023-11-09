@@ -1,6 +1,6 @@
 <h2 class="dialog-title">Statistique</h2>
 <div (click)="popupRef.close()" class="close">
-  <svg-icon svgName="close"/>
+  <svg-icon svgName="close" />
 </div>
 
 <div class="popup-content">
@@ -30,48 +30,50 @@
       <br />
       <h2>Performances :</h2>
       <div class="perform-container">
-        <div
-          *ngFor="let attempts of bestAttempts; let i = index; let last = last"
-        >
+        @for (attempts of bestAttempts; let i = $index; let last = $last; track
+        i) {
+        <div>
           <div class="perform-item">
-            <div class="first-item" *ngIf="!last; else failTemp">
-              {{ i + 1 }} :
-            </div>
-            <ng-template #failTemp>
-              <div class="last-item"><svg-icon svgName="close" /> :</div>
-            </ng-template>
+            @if(!last){
+            <div class="first-item">{{ i + 1 }} :</div>
+            } @else{
+            <div class="last-item"><svg-icon svgName="close" /> :</div>
+            }
             <progress [value]="attempts * 10" max="100"></progress>
             {{ attempts }}
             <br />
           </div>
         </div>
+        }
       </div>
     </div>
   </ng-container>
 
   <ng-container>
-    <div *ngIf="status() as statusValue">
-      <div *ngIf="statusValue !== 'IN_PROGRESS'" class="solution-container">
-        <div class="sub">Le mot était</div>
-        <h2 class="solution" *ngIf="solution() as solutionValue">
-          <span *ngFor="let s of solutionValue.split('')">{{ s }}</span>
-        </h2>
+    @if(status() !== 'IN_PROGRESS'){
+    <div class="solution-container">
+      <div class="sub">Le mot était</div>
+      <h2 class="solution">
+        @for (s of solution().split(''); track $index) {
+        <span>{{ s }}</span>
+        }
+      </h2>
 
-        <div class="sharedable">
-          <button
-            [cdkCopyToClipboard]="url()"
-            (click)="clipBord()"
-            awesomeTooltip="Lien copié"
-            [withClick]="true"
-            aria-label="Button that displays a tooltip that can be programmatically disabled"
-            [cdkCopyToClipboard]="url()"
-            class="share-btn"
-            type="button"
-          >
-            <span>Partager</span>
-          </button>
-        </div>
+      <div class="sharedable">
+        <button
+          [cdkCopyToClipboard]="url()"
+          (click)="clipBord()"
+          awesomeTooltip="Lien copié"
+          [withClick]="true"
+          aria-label="Button that displays a tooltip that can be programmatically disabled"
+          [cdkCopyToClipboard]="url()"
+          class="share-btn"
+          type="button"
+        >
+          <span>Partager</span>
+        </button>
       </div>
     </div>
+    }
   </ng-container>
 </div>
