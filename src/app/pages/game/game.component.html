@@ -1,15 +1,12 @@
 <div id="game">
-  <div
-    *ngIf="solution() as word"
-    class="grid-container"
-    [style.--col-grid]="word.length"
-  >
-    <div
-      *ngFor="let ev of evaluations() as lines; let rowIndex = index"
-      class="attempt"
-    >
+  @if(solution(); as word){
+  <div class="grid-container" [style.--col-grid]="word.length">
+    @if(evaluations(); as lines){ 
+      @for (ev of lines; let rowIndex = $index; track rowIndex) {
+    <div class="attempt">
+      @for (item of ev; let colIndex = $index; track colIndex) {
+
       <div
-        *ngFor="let _ of ev; let colIndex = index"
         class="letter-container {{ lines[rowIndex][colIndex] }} delay-{{
           colIndex + 1
         }}"
@@ -18,7 +15,10 @@
           {{ currentBoard() | letter : rowIndex : colIndex }}
         </div>
       </div>
+      }
     </div>
+    } 
+  }
   </div>
 
   <div class="keyboard">
@@ -74,4 +74,5 @@
       </button>
     </div>
   </div>
+  }
 </div>

@@ -9,9 +9,18 @@
   </div>
 </div>
 
-<div class="page-container" *ngIf="gameStatus() as gameStatusValue">
-  <ng-container [ngSwitch]="gameStatusValue">
-    <wd-game *ngSwitchCase="'IN_PROGRESS'" />
-    <wd-waiting-board *ngSwitchDefault />
-  </ng-container>
+<div class="page-container">
+  @defer (when status() === LOADED) { 
+    @switch(gameStatus()){
+     @case ('IN_PROGRESS') {
+      <wd-game />
+      } 
+     @default {
+        <wd-waiting-board />
+      } 
+    } 
+
+  } @loading {
+    <div>chargement</div>
+  }
 </div>
