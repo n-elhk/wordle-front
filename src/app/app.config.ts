@@ -38,7 +38,7 @@ export function initializeIcon(
       { name: 'close', path: `${baseSvg}/close.svg` },
     ];
 
-    icons.forEach((icon) => {
+    icons.forEach(icon => {
       return iconRegistery.addSvgIcon(
         icon.name,
         domSanitizer.bypassSecurityTrustResourceUrl(icon.path)
@@ -80,6 +80,5 @@ export const appConfig: ApplicationConfig = {
       deps: [IconRegistery, DomSanitizer],
       multi: true,
     },
-
   ],
 };
