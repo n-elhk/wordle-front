@@ -33,7 +33,7 @@ export class WordleEffects {
     this.actions$.pipe(
       ofType(wordleActions.hydrate, rootEffectsInit),
       switchMap(() => this.gameService.getWordle()),
-      map((solution) => {
+      map(solution => {
         const gameBoard = this.storageService.getStorage<Board>(
           StorageKey.BoardState
         );

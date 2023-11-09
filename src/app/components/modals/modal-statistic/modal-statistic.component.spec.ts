@@ -8,13 +8,12 @@ describe('ModalStatisticComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [ModalStatisticComponent]
+      declarations: [ModalStatisticComponent],
     });
     fixture = TestBed.createComponent(ModalStatisticComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
-
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -9,10 +9,10 @@ export interface Board {
   rowIndex: number;
 }
 
-export type GameStatus =  'IN_PROGRESS' | 'WIN' | 'LOOSE';
+export type GameStatus = 'IN_PROGRESS' | 'WIN' | 'LOOSE';
 
 export enum Attempt {
-  correct  = 'correct',
+  correct = 'correct',
   partial = 'partial',
   absent = 'absent',
 }

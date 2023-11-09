@@ -8,7 +8,6 @@ export class PopupConfig<D = unknown> {
   /** Affects where the popup will be situated in Angular's logical tree. */
   public viewContainerRef?: ViewContainerRef;
 
-
   /** Layout direction for the dialog's content. */
   public direction?: Direction;
 

@@ -25,7 +25,7 @@ export class GameService {
    */
   public getWordle(): Observable<string> {
     if (this.storageService.checkLastSaved()) {
-      const words = CHRISTIAN_WORDS.filter((w) => w.length < 9);
+      const words = CHRISTIAN_WORDS.filter(w => w.length < 9);
 
       const random = this.getRandomNumber(0, words.length - 1);
 
@@ -50,7 +50,7 @@ export class GameService {
       absentLetters,
       partialLetters,
     } = { ...boardState };
-    let { rowIndex } = { ...boardState };
+    const { rowIndex } = { ...boardState };
 
     const word = attempts[rowIndex];
     const newEval = [...evaluations];
@@ -103,7 +103,7 @@ export class GameService {
     const targetLetters = {} as Record<string, number>;
 
     for (let i = 0; i < guess.length; ++i) {
-      let targetLetter = targetWord[i];
+      const targetLetter = targetWord[i];
       if (targetLetter in targetLetters) {
         targetLetters[targetLetter]++;
       } else {
@@ -119,7 +119,7 @@ export class GameService {
     }
 
     for (const i of indicesOfIncorrectLettersInGuess) {
-      let guessLetter = guess[i];
+      const guessLetter = guess[i];
 
       if (guessLetter in targetLetters && targetLetters[guessLetter] > 0) {
         colors[i] = Attempt.partial;
@@ -194,7 +194,7 @@ export class GameService {
   }
 
   public percentWin(arr: WordleStatGame[]): number {
-    const wonsLength = arr.filter((e) => e.won).length;
+    const wonsLength = arr.filter(e => e.won).length;
     if (!wonsLength) {
       return wonsLength;
     }

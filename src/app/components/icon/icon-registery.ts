@@ -117,7 +117,7 @@ export class IconRegistery {
     name: string,
     namespace: string = ''
   ): Observable<SVGElement> {
-    let config = this._svgIconConfigs.get(name);
+    const config = this._svgIconConfigs.get(name);
 
     // Return (copy of) cached icon if possible.
     if (config) {
@@ -139,7 +139,7 @@ export class IconRegistery {
     } else {
       // Fetch the icon from the config's URL, cache it, and return a copy.
       return this._loadSvgIconFromConfig(config).pipe(
-        map((svg) => this.cloneSvg(svg))
+        map(svg => this.cloneSvg(svg))
       );
     }
   }
@@ -183,7 +183,7 @@ export class IconRegistery {
     const req = this._httpClient
       .get(url, { responseType: 'text', withCredentials })
       .pipe(
-        map((svg) => {
+        map(svg => {
           // Security: This SVG is fetched from a SafeResourceUrl, and is thus
           // trusted HTML.
           return svg;
@@ -251,7 +251,7 @@ export class IconRegistery {
     config: SvgIconConfig
   ): Observable<SVGElement> {
     return this._fetchIcon(config).pipe(
-      tap((svgText) => (config.svgText = svgText)),
+      tap(svgText => (config.svgText = svgText)),
       map(() => this._svgElementFromConfig(config as LoadedSvgIconConfig))
     );
   }

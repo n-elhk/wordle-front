@@ -1,9 +1,5 @@
 import { ClipboardModule } from '@angular/cdk/clipboard';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AwesomeTooltipDirective, ShareDirective } from '@common/directives';
 import { SvgIcon } from '@components/icon';
 import { WordleStat } from '@models/statistic';
@@ -16,12 +12,7 @@ import { POPUP_DATA } from '@services/popup/popup.service';
   templateUrl: './modal-statistic.component.html',
   styleUrls: ['./modal-statistic.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [
-    SvgIcon,
-    ClipboardModule,
-    ShareDirective,
-    AwesomeTooltipDirective,
-  ],
+  imports: [SvgIcon, ClipboardModule, ShareDirective, AwesomeTooltipDirective],
   standalone: true,
 })
 export class ModalStatisticComponent extends ShareDirective {

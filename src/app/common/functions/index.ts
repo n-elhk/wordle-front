@@ -1,1 +1,1 @@
-export * from './destroy-ref'
+export * from './destroy-ref';

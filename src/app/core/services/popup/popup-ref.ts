@@ -3,7 +3,6 @@ import { hasModifierKey } from '@angular/cdk/keycodes';
 import { filter, Observable, Subject, tap, first } from 'rxjs';
 import { OverlayContainerComponent } from '@components/overlay-container.component';
 
-
 let uniqueId = 0;
 
 /**
@@ -40,40 +39,49 @@ export class PopupRef<T, R = unknown> {
     private overlayRef: OverlayRef,
     private popupContainerInstance: OverlayContainerComponent,
     private closeOnBackdropClick = false,
-    id = `popup-${ uniqueId++ }`,
+    id = `popup-${uniqueId++}`
   ) {
     this.popupContainerInstance.id = id;
-    this.popupContainerInstance.afterViewInit$.pipe(
-      first(),
-      tap(() => {
-        this.afterViewInitSubject.next();
-        this.afterViewInitSubject.complete();
-      }),
-    ).subscribe();
+    this.popupContainerInstance.afterViewInit$
+      .pipe(
+        first(),
+        tap(() => {
+          this.afterViewInitSubject.next();
+          this.afterViewInitSubject.complete();
+        })
+      )
+      .subscribe();
 
-    this.overlayRef.detachments().pipe(
-      tap(() => {
-        this.beforeClosedSubject.next(this.result);
-        this.beforeClosedSubject.complete();
-        this.afterClosedSubject.next(this.result);
-        this.afterClosedSubject.complete();
-        this.componentInstance = null as never;
-        this.overlayRef.dispose();
-      }),
-    ).subscribe();
+    this.overlayRef
+      .detachments()
+      .pipe(
+        tap(() => {
+          this.beforeClosedSubject.next(this.result);
+          this.beforeClosedSubject.complete();
+          this.afterClosedSubject.next(this.result);
+          this.afterClosedSubject.complete();
+          this.componentInstance = null as never;
+          this.overlayRef.dispose();
+        })
+      )
+      .subscribe();
 
-    this.overlayRef.keydownEvents().pipe(
-      filter(event => event.code === 'ESCAPE' && !hasModifierKey(event)),
-      tap(event => {
-        event.preventDefault();
-        this.close();
-      }),
-    ).subscribe();
+    this.overlayRef
+      .keydownEvents()
+      .pipe(
+        filter(event => event.code === 'ESCAPE' && !hasModifierKey(event)),
+        tap(event => {
+          event.preventDefault();
+          this.close();
+        })
+      )
+      .subscribe();
 
     if (this.closeOnBackdropClick) {
-      this.overlayRef.backdropClick().pipe(
-        tap(() => this.close()),
-      ).subscribe();
+      this.overlayRef
+        .backdropClick()
+        .pipe(tap(() => this.close()))
+        .subscribe();
     }
   }
 

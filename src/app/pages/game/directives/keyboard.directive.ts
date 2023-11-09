@@ -4,7 +4,7 @@ import { enterLetter } from '../helpers/keyboard.helper';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Directive({
-  selector: 'button[appKeyboard]',
+  selector: 'button[wdKeyboard]',
   standalone: true,
 })
 export class KeyboardDirective {

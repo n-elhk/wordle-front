@@ -32,7 +32,10 @@ export const DEFAULT_POPUP_CONFIG = new InjectionToken<unknown>(
 })
 export class OverlayService {
   /** Injection of {@link PopupConfig }. */
-  private defaultOptions = inject<PopupConfig | undefined>(DEFAULT_POPUP_CONFIG, { optional: true });
+  private defaultOptions = inject<PopupConfig | undefined>(
+    DEFAULT_POPUP_CONFIG,
+    { optional: true }
+  );
 
   /** Injection of {@link Overlay}. */
   private overlay = inject(Overlay);

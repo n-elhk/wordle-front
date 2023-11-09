@@ -1,1 +1,1 @@
-export * from './letter.pipe'
+export * from './letter.pipe';

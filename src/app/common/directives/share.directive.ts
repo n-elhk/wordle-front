@@ -54,7 +54,7 @@ export class ShareDirective {
 
         for (let index = 0; index < rowIndex + 1; index++) {
           const attempts = evaluations[index];
-          attempts.forEach((attempt) => {
+          attempts.forEach(attempt => {
             tweetText = tweetText + SquareAttempt[attempt];
           });
           tweetText = tweetText + `\n`;

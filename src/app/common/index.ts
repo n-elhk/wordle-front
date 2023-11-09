@@ -1,3 +1,3 @@
-export * from './directives'
-export * from './pipes'
-export * from './functions'
+export * from './directives';
+export * from './pipes';
+export * from './functions';

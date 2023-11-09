@@ -1,5 +1,3 @@
-
-
 export enum StorageKey {
   BoardState = 'wordle-state',
   Stat = 'wordle-stat',

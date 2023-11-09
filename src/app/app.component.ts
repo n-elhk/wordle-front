@@ -7,7 +7,11 @@ import {
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
 import { StorageService } from './core/services/storage/storage.service';
-import { RequestStatus, selectGameStatus, selectStatus } from './core/store/wordle';
+import {
+  RequestStatus,
+  selectGameStatus,
+  selectStatus,
+} from './core/store/wordle';
 
 import { OverlayService } from '@services/popup/popup.service';
 import { PushPipe } from '@ngrx/component';
@@ -22,12 +26,7 @@ import { SvgIcon } from '@components/icon';
   styleUrls: ['./app.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
-  imports: [
-    SvgIcon,
-    PushPipe,
-    GameComponent,
-    WaitingBoardComponent,
-  ],
+  imports: [SvgIcon, PushPipe, GameComponent, WaitingBoardComponent],
 })
 export class AppComponent {
   /** Injection of {@link FormBuilder}. */
@@ -47,7 +46,7 @@ export class AppComponent {
   public readonly gameStatus = this.store.selectSignal(selectGameStatus);
 
   public readonly status = this.store.selectSignal(selectStatus);
-  public readonly LOADED = RequestStatus.LOADED
+  public readonly LOADED = RequestStatus.LOADED;
 
   public openStatDialog(): void {
     const wordleState = this.storageService.getStorage(StorageKey.Stat);

@@ -71,13 +71,13 @@ export class GameComponent implements AfterViewInit {
     merge(
       fromEvent<KeyboardEvent>(document, 'keydown', { passive: true }).pipe(
         throttleTime(200, undefined, { leading: true, trailing: true }),
-        map((ev) => enterLetter(ev.key, this.injector))
+        map(ev => enterLetter(ev.key, this.injector))
       ),
 
       toObservable(this.currentBoard).pipe(
         skip(1),
         switchMap(() => this.store.select(selectBoardState)),
-        tap((res) => this.storageService.setStorage(StorageKey.BoardState, res))
+        tap(res => this.storageService.setStorage(StorageKey.BoardState, res))
       )
     )
       .pipe(takeUntilDestroyed())

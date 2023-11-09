@@ -18,7 +18,7 @@ export const wordleFeature = createFeature({
   name: featureName,
   reducer: createReducer(
     initialState,
-    on(wordleActions.hydrate, (state) => ({
+    on(wordleActions.hydrate, state => ({
       ...state,
       status: RequestStatus.LOADING,
       error: '',
@@ -48,7 +48,7 @@ export const wordleFeature = createFeature({
       };
     }),
 
-    on(wordleActions.getWord, (state) => ({
+    on(wordleActions.getWord, state => ({
       ...state,
       status: RequestStatus.LOADING,
       error: '',
@@ -77,7 +77,7 @@ export const wordleFeature = createFeature({
       };
     }),
 
-    on(wordleActions.deleteLetter, (state) => {
+    on(wordleActions.deleteLetter, state => {
       const { attempts, rowIndex } = { ...state.boardState };
       const newBoard = [...attempts];
       newBoard[rowIndex] = newBoard[rowIndex].slice(0, -1);
