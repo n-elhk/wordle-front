@@ -28,7 +28,7 @@ export function initializeIcon(
   domSanitizer: DomSanitizer
 ) {
   return () => {
-    const baseSvg = 'assets/icons/';
+    const baseSvg = 'assets/icons';
 
     const icons = [
       { name: 'keyboard_return', path: `${baseSvg}/keyboard_return.svg` },
