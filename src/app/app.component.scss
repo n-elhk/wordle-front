@@ -1,31 +1,32 @@
 :host {
-    .header--container {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--text-color);
-        background-color: var(--secondary-color);
-        padding: .5rem;
-        font-weight: 500;
-        font-size: 1.2em;
+  .header--container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-color);
+    background-color: var(--secondary-color);
+    padding: 1rem;
+    font-weight: 500;
+    font-size: 1.2em;
 
-        .title {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex: 2;
-        }
-
-        .navivations--container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-
-            svg-icon {
-                cursor: pointer;
-                padding: .5rem;
-            }
-        }
+    .title {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 2;
     }
 
+    .navivations--container {
+      position: absolute;
+      right: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      svg-icon {
+        cursor: pointer;
+        padding: 0.5rem;
+      }
+    }
+  }
 }
