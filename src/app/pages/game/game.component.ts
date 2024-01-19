@@ -48,24 +48,24 @@ export class GameComponent implements AfterViewInit {
   private destroy$ = untilDestroyed();
 
   /** Injection of {@link Injector}. */
-  private injector = inject(Injector);
+  private readonly injector = inject(Injector);
 
   /** Injection of {@link Store}. */
-  private store = inject(Store);
+  private readonly store = inject(Store);
 
   /** Injection of {@link StorageService}. */
-  private storageService = inject(StorageService);
+  private readonly storageService = inject(StorageService);
 
   @ViewChildren(KeyboardDirective, { read: ElementRef })
   public matButtonChildren!: QueryList<ElementRef<HTMLButtonElement>>;
 
-  public readonly evaluation = this.store.selectSignal(selectEvaluations);
+  readonly evaluation = this.store.selectSignal(selectEvaluations);
 
-  public evaluations = this.store.selectSignal(selectEvaluations);
+  readonly evaluations = this.store.selectSignal(selectEvaluations);
 
-  public readonly currentBoard = this.store.selectSignal(selectCurrentBoard);
+  readonly currentBoard = this.store.selectSignal(selectCurrentBoard);
 
-  public readonly solution = this.store.selectSignal(selectSolution);
+  readonly solution = this.store.selectSignal(selectSolution);
 
   constructor() {
     merge(

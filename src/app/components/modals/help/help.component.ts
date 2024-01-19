@@ -12,5 +12,5 @@ import { PopupRef } from '@services/popup/popup-ref';
 })
 export class HelpComponent {
   /** Injection of {@link PopupRef}. */
-  public popupRef = inject(PopupRef);
+  readonly popupRef = inject(PopupRef);
 }

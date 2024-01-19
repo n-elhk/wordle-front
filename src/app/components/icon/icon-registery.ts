@@ -111,12 +111,8 @@ export class IconRegistery {
    * if not, the Observable will throw an error.
    *
    * @param name Name of the icon to be retrieved.
-   * @param namespace Namespace in which to look for the icon.
    */
-  getNamedSvgIcon(
-    name: string,
-    namespace: string = ''
-  ): Observable<SVGElement> {
+  getNamedSvgIcon(name: string): Observable<SVGElement> {
     const config = this._svgIconConfigs.get(name);
 
     // Return (copy of) cached icon if possible.

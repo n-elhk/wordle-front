@@ -23,15 +23,15 @@ export class ModalStatisticComponent extends ShareDirective {
   public readonly data = inject<WordleStat>(POPUP_DATA);
 
   /** Injection of {@link PopupRef}. */
-  public readonly popupRef = inject(PopupRef);
+  readonly popupRef = inject(PopupRef);
 
-  public readonly bestStreak = this.gameService.bestStreak(this.data.games)[0];
+  readonly bestStreak = this.gameService.bestStreak(this.data.games)[0];
 
-  public readonly currentStreak = this.gameService.currentStreak(
-    this.data.games
+  readonly currentStreak = this.gameService.currentStreak(this.data.games);
+
+  readonly percentWin = Math.round(
+    this.gameService.percentWin(this.data.games)
   );
 
-  public percentWin = Math.round(this.gameService.percentWin(this.data.games));
-
-  public readonly bestAttempts = this.gameService.bestAttempts(this.data.games);
+  readonly bestAttempts = this.gameService.bestAttempts(this.data.games);
 }

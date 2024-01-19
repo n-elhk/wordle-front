@@ -1,53 +1,67 @@
 <h2 class="popu-title">Comment jouer ?</h2>
 <div (click)="popupRef.close()" class="close">
-    <svg-icon svgName="close"/>
-  </div>
+  <svg-icon svgName="close" />
+</div>
+
 <div class="popup-content">
-    <div>
-        <p>Ce jeu reprend exactement le même concept que le Wordle, mais avec des mots chrétiens</p>
+  <div>
+    <p>
+      Ce jeu reprend exactement le même concept que le Wordle, mais avec des
+      mots chrétiens
+    </p>
 
-        <p>Chaque jour, un mot est choisi aléatoirement. Vous devez le deviner en 6 essais.</p>
+    <p>
+      Chaque jour, un mot est choisi aléatoirement. Vous devez le deviner en 6
+      essais.
+    </p>
 
-        <p>À chaque essai, les lettres du mot que vous avez proposé changeront de couleur en fonction de à quel
-            point
-            vous êtes proche de le trouver.</p>
+    <p>
+      À chaque essai, les lettres du mot que vous avez proposé changeront de
+      couleur en fonction de à quel point vous êtes proche de le trouver.
+    </p>
 
-        <div class="help-exemple">
-            <div class="help-word">
-                <div class="letter-container correct">J</div>
-                <div class="letter-container">E</div>
-                <div class="letter-container">S</div>
-                <div class="letter-container">U</div>
-                <div class="letter-container">S</div>
-            </div>
-            <p>La lettre <span class="correct">J</span> est dans le mot, à la bonne place.</p>
+    <div class="help-exemple">
+      <div class="help-word">
+        <div class="letter-container correct">J</div>
+        <div class="letter-container">E</div>
+        <div class="letter-container">S</div>
+        <div class="letter-container">U</div>
+        <div class="letter-container">S</div>
+      </div>
+      <p>
+        La lettre <span class="correct">J</span> est dans le mot, à la bonne
+        place.
+      </p>
 
-            <div class="help-word">
-                <div class="letter-container">J</div>
-                <div class="letter-container">O</div>
-                <div class="letter-container partial">I</div>
-                <div class="letter-container">E</div>
-                <div class="letter-container">S</div>
-            </div>
-            <p>La lettre <span class="partial">I</span> est dans le mot, mais pas à la bonne place.</p>
+      <div class="help-word">
+        <div class="letter-container">J</div>
+        <div class="letter-container">O</div>
+        <div class="letter-container partial">I</div>
+        <div class="letter-container">E</div>
+        <div class="letter-container">S</div>
+      </div>
+      <p>
+        La lettre <span class="partial">I</span> est dans le mot, mais pas à la
+        bonne place.
+      </p>
 
-            <div class="help-word">
-                <div class="letter-container">J</div>
-                <div class="letter-container">U</div>
-                <div class="letter-container">S</div>
-                <div class="letter-container">T</div>
-                <div class="letter-container absent">E</div>
-            </div>
-            <p>La lettre <span class="absent">E</span> n'est pas dans le mot.</p>
-        </div>
-
-
-
+      <div class="help-word">
+        <div class="letter-container">J</div>
+        <div class="letter-container">U</div>
+        <div class="letter-container">S</div>
+        <div class="letter-container">T</div>
+        <div class="letter-container absent">E</div>
+      </div>
+      <p>La lettre <span class="absent">E</span> n'est pas dans le mot.</p>
     </div>
+  </div>
 </div>
 
 <div class="popup-actions">
-    <small>
-        <p>Développé par <a href="https://twitter.com/PigeonPanet">&#64;PigeonPanet</a>.</p>
-    </small>
+  <small>
+    <p>
+      Développé par
+      <a href="https://twitter.com/PigeonPanet">&#64;PigeonPanet</a>.
+    </p>
+  </small>
 </div>
