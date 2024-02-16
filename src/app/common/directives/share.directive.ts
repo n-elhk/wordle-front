@@ -1,4 +1,4 @@
-import { Directive, inject, signal, ViewChild } from '@angular/core';
+import { Directive, inject, signal, viewChild } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { SquareAttempt } from '@models/board';
 import { StorageKey } from '@models/storage';
@@ -25,23 +25,23 @@ export class ShareDirective {
   /** Injection of {@link StorageService}. */
   private readonly storageService = inject(StorageService);
 
-  @ViewChild(AwesomeTooltipDirective) public tooltip!: AwesomeTooltipDirective;
+  readonly tooltip = viewChild.required(AwesomeTooltipDirective);
 
   private readonly timestamp = signal(
     this.storageService.getStorage<number>(StorageKey.Date)
   );
 
-  public readonly url = toSignal(this.getLink(), { initialValue: '' });
+  readonly url = toSignal(this.getLink(), { initialValue: '' });
 
-  public readonly countdown = toSignal(this.countdown$());
+  readonly countdown = toSignal(this.countdown$());
 
-  public readonly solution = this.store.selectSignal(selectSolution);
+  readonly solution = this.store.selectSignal(selectSolution);
 
-  public readonly status = this.store.selectSignal(selectGameStatus);
+  readonly status = this.store.selectSignal(selectGameStatus);
 
   public clipBord(): void {
-    this.tooltip.show();
-    setTimeout(() => this.tooltip.hide(), 500);
+    this.tooltip().show();
+    setTimeout(() => this.tooltip().hide(), 500);
   }
 
   private getLink() {

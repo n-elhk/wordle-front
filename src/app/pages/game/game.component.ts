@@ -6,8 +6,7 @@ import {
   HostListener,
   inject,
   Injector,
-  QueryList,
-  ViewChildren,
+  viewChildren,
 } from '@angular/core';
 import { StorageKey } from '@models/storage';
 import { Store } from '@ngrx/store';
@@ -56,8 +55,9 @@ export class GameComponent implements AfterViewInit {
   /** Injection of {@link StorageService}. */
   private readonly storageService = inject(StorageService);
 
-  @ViewChildren(KeyboardDirective, { read: ElementRef })
-  public matButtonChildren!: QueryList<ElementRef<HTMLButtonElement>>;
+  readonly matButtonChildren = viewChildren(KeyboardDirective, {
+    read: ElementRef,
+  });
 
   readonly evaluation = this.store.selectSignal(selectEvaluations);
 
@@ -88,7 +88,7 @@ export class GameComponent implements AfterViewInit {
       .select(selectLettersChoosed)
       .pipe(
         tap(([partialLetters, correctLetters, absentLetters]) => {
-          this.matButtonChildren.forEach(({ nativeElement }) => {
+          this.matButtonChildren().forEach(({ nativeElement }) => {
             if (correctLetters.indexOf(nativeElement.value) > -1) {
               nativeElement.classList.add('correct');
               nativeElement.classList.remove('partial');

@@ -10,7 +10,7 @@ import {
   ElementRef,
   HostListener,
   inject,
-  Input,
+  input,
 } from '@angular/core';
 import { AwesomeTooltipComponent } from '@components/tooltip.component';
 
@@ -28,16 +28,16 @@ export class AwesomeTooltipDirective {
   /** Injection of {@link ElementRef}. */
   private readonly elementRef = inject(ElementRef);
 
-  @Input('awesomeTooltip') public text = '';
+  readonly text = input('', { alias: 'awesomeTooltip' });
 
-  @Input() public disabled = false;
+  readonly disabled = input(false);
 
-  @Input() public withClick = false;
+  readonly withClick = input(false);
 
   private overlayRef: OverlayRef | undefined = undefined;
 
   private get canOpenTooltip() {
-    if (!this.disabled && !this.overlayRef) {
+    if (!this.disabled() && !this.overlayRef) {
       return true;
     }
     return false;
@@ -69,12 +69,12 @@ export class AwesomeTooltipDirective {
     const tooltipRef = this.overlayRef.attach(
       new ComponentPortal(AwesomeTooltipComponent)
     );
-    tooltipRef.instance.text = this.text;
+    tooltipRef.instance.text = this.text();
   }
 
   @HostListener('mouseenter')
   private showlistner(): void {
-    if (this.withClick || !this.canOpenTooltip) {
+    if (this.withClick() || !this.canOpenTooltip) {
       return;
     }
     this.show();

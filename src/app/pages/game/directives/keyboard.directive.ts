@@ -9,10 +9,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 })
 export class KeyboardDirective {
   /** Injection of {@link ElementRef}. */
-  private element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
+  private readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
 
   /** Injection of {@link Injector}. */
-  private injector = inject(Injector);
+  private readonly injector = inject(Injector);
 
   constructor() {
     fromEvent(this.element.nativeElement, 'click')

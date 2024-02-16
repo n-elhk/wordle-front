@@ -12,11 +12,11 @@ import {
   ComponentRef,
   ElementRef,
   EmbeddedViewRef,
-  ViewChild,
   ViewEncapsulation,
   HostBinding,
   OnDestroy,
   inject,
+  viewChild,
 } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 
@@ -66,8 +66,7 @@ export class OverlayContainerComponent
   /**
    * Reference to the portal outlet.
    */
-  @ViewChild(CdkPortalOutlet, { static: true })
-  private portalOutlet!: CdkPortalOutlet;
+  private portalOutlet = viewChild.required(CdkPortalOutlet);
 
   /**
    * Id of the popup container.
@@ -110,11 +109,11 @@ export class OverlayContainerComponent
    * @returns The inserted component's reference.
    */
   public attachComponentPortal<T>(portal: ComponentPortal<T>): ComponentRef<T> {
-    if (this.portalOutlet.hasAttached()) {
+    if (this.portalOutlet().hasAttached()) {
       throw new ContentIsAlreadyAttachedError();
     }
 
-    return this.portalOutlet.attachComponentPortal(portal);
+    return this.portalOutlet().attachComponentPortal(portal);
   }
 
   /**
@@ -126,11 +125,11 @@ export class OverlayContainerComponent
   public attachTemplatePortal<C>(
     portal: TemplatePortal<C>
   ): EmbeddedViewRef<C> {
-    if (this.portalOutlet.hasAttached()) {
+    if (this.portalOutlet().hasAttached()) {
       throw new ContentIsAlreadyAttachedError();
     }
 
-    return this.portalOutlet.attachTemplatePortal(portal);
+    return this.portalOutlet().attachTemplatePortal(portal);
   }
 
   /**
@@ -139,11 +138,11 @@ export class OverlayContainerComponent
    * @param portal A DomPortal.
    */
   public attachDOMPortal(portal: DomPortal): void {
-    if (this.portalOutlet.hasAttached()) {
+    if (this.portalOutlet().hasAttached()) {
       throw new ContentIsAlreadyAttachedError();
     }
 
-    this.portalOutlet.attachDomPortal(portal);
+    this.portalOutlet().attachDomPortal(portal);
     return;
   }
 }
