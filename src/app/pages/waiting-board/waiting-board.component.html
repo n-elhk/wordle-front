@@ -1,13 +1,16 @@
-<div *ngIf="solution() as solutionValue" id="waiting">
-  <ng-container *ngIf="status() as statusValue">
-    <p class="text" *ngIf="statusValue === 'WIN'">C'est gagné pour aujourd'hui !</p>
-    <p class="text" *ngIf="statusValue === 'LOOSE'">
-      C'est perdu pour aujourd'hui !
-    </p>
-  </ng-container>
-
+<div id="waiting">
+  @if (status(); as statusValue) {
+    @if (statusValue === 'WIN') {
+      <p class="text">C'est gagné pour aujourd'hui !</p>
+    }
+    @if (statusValue === 'LOOSE') {
+      <p class="text">C'est perdu pour aujourd'hui !</p>
+    }
+  }
   <p class="text solution">
-    <span *ngFor="let s of solutionValue.split('')">{{ s }}</span>
+    @for (item of solution().split(''); track $index) {
+      <span>{{ item }}</span>
+    }
   </p>
 
   <div class="text date-container">

@@ -1,10 +1,4 @@
-import {
-  Injectable,
-  Injector,
-  Inject,
-  StaticProvider,
-  Optional,
-} from '@angular/core';
+import { Injectable, Injector, StaticProvider, inject } from '@angular/core';
 import { Overlay } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
 
@@ -23,11 +17,9 @@ import { ToastRef } from './toast-ref';
 export class ToastService {
   private lastToast: ToastRef | undefined = undefined;
 
-  constructor(
-    private injector: Injector,
-    private overlay: Overlay,
-    @Optional() @Inject(TOAST_CONFIG) private defaultOptions: ToastConfig
-  ) {}
+  private readonly injector = inject(Injector);
+  private readonly overlay = inject(Overlay);
+  private readonly defaultOptions = inject(TOAST_CONFIG, { optional: true });
 
   show(config?: ToastConfig, isMultiple = false) {
     config = this.mergeWithDefaultConfig(

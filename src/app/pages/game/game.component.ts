@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   Component,
   ElementRef,
-  HostListener,
   inject,
   Injector,
   viewChildren,
@@ -42,6 +41,9 @@ import { enterLetter } from './helpers/keyboard.helper';
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
   imports: [LetterPipe, CommonModule, SvgIcon, KeyboardDirective],
+  host: {
+    '(window:storage)': 'touch($event)',
+  },
 })
 export class GameComponent implements AfterViewInit {
   private destroy$ = untilDestroyed();
@@ -104,7 +106,6 @@ export class GameComponent implements AfterViewInit {
       .subscribe();
   }
 
-  @HostListener('window:storage', ['$event'])
   private touch(event: StorageEvent): void {
     if (event.key === StorageKey.BoardState) {
       this.storageService.removeItem(event.key);

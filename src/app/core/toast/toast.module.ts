@@ -2,6 +2,11 @@ import { ModuleWithProviders, NgModule } from '@angular/core';
 import { ToastComponent } from './toast.component';
 import { ToastConfig, TOAST_CONFIG } from './toast-config';
 
+export const provideToast = (config = new ToastConfig()) => ({
+  provide: TOAST_CONFIG,
+  useValue: { ...new ToastConfig(), ...config },
+});
+
 @NgModule({
   imports: [ToastComponent],
   exports: [ToastComponent],

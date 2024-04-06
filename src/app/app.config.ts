@@ -1,9 +1,4 @@
-import {
-  APP_INITIALIZER,
-  ApplicationConfig,
-  importProvidersFrom,
-  isDevMode,
-} from '@angular/core';
+import { APP_INITIALIZER, ApplicationConfig, isDevMode } from '@angular/core';
 import { provideState, provideStore } from '@ngrx/store';
 import {
   reducers,
@@ -13,7 +8,7 @@ import {
 import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 
-import { ToastModule } from './core/toast/toast.module';
+import { provideToast } from './core/toast/toast.module';
 
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { wordleFeature } from '@store/wordle/wordle.reducer';
@@ -73,7 +68,8 @@ export const appConfig: ApplicationConfig = {
       }
     ),
     provideEffects([WordleEffects]),
-    importProvidersFrom(ToastModule.forRoot()),
+    provideToast(),
+    // importProvidersFrom(ToastModule.forRoot()),
 
     {
       provide: APP_INITIALIZER,

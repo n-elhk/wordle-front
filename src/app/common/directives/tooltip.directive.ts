@@ -1,22 +1,20 @@
 import {
-  FlexibleConnectedPositionStrategy,
   Overlay,
-  OverlayPositionBuilder,
   OverlayRef,
+  OverlayPositionBuilder,
+  FlexibleConnectedPositionStrategy,
 } from '@angular/cdk/overlay';
 import { ComponentPortal } from '@angular/cdk/portal';
-import {
-  Directive,
-  ElementRef,
-  HostListener,
-  inject,
-  input,
-} from '@angular/core';
+import { Directive, ElementRef, inject, input } from '@angular/core';
 import { AwesomeTooltipComponent } from '@components/tooltip.component';
 
 @Directive({
   selector: '[awesomeTooltip]',
   standalone: true,
+  host: {
+    '(mouseenter)': 'showlistner()',
+    '(mouseout)': 'hide()',
+  },
 })
 export class AwesomeTooltipDirective {
   /** Injection of {@link Overlay}. */
@@ -72,7 +70,6 @@ export class AwesomeTooltipDirective {
     tooltipRef.instance.text = this.text();
   }
 
-  @HostListener('mouseenter')
   private showlistner(): void {
     if (this.withClick() || !this.canOpenTooltip) {
       return;
@@ -80,7 +77,6 @@ export class AwesomeTooltipDirective {
     this.show();
   }
 
-  @HostListener('mouseout')
   public hide(): void {
     if (this.overlayRef && this.overlayRef.hasAttached()) {
       this.overlayRef.detach();

@@ -1,11 +1,17 @@
 <h2 class="dialog-title">Statistique</h2>
-<div (click)="popupRef.close()" class="close">
-  <svg-icon svgName="close" />
+<div
+  tabIndex="-1"
+  role="presentation"
+  (keydown.escape)="popupRef.close()"
+  (keydown.enter)="popupRef.close()"
+  (click)="popupRef.close()"
+  class="close">
+  <svg-icon  aria-hidden="true" svgName="close" />
 </div>
 
 <div class="popup-content">
   <ng-container>
-    <div class="stat-item">
+    <div class="stat-item"> 
       <div class="stat-card">
         <div class="stat-card-value">{{ data.games.length }}</div>
         <div class="stat-card-label">Parties</div>

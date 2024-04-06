@@ -1,6 +1,12 @@
 <h2 class="popu-title">Comment jouer ?</h2>
-<div (click)="popupRef.close()" class="close">
-  <svg-icon svgName="close" />
+<div
+  tabIndex="-1"
+  role="presentation"
+  (keydown.escape)="popupRef.close()"
+  (keydown.enter)="popupRef.close()"
+  (click)="popupRef.close()"
+  class="close">
+  <svg-icon aria-hidden="true" svgName="close" />
 </div>
 
 <div class="popup-content">
@@ -61,7 +67,7 @@
   <small>
     <p>
       Développé par
-      <a href="https://twitter.com/PigeonPanet">&#64;PigeonPanet</a>.
+      <a href="https://twitter.com/elkanbas">&#64;Elkanbas</a>.
     </p>
   </small>
 </div>

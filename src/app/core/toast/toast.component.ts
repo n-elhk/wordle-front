@@ -1,36 +1,32 @@
-import { Component, Inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AnimationEvent } from '@angular/animations';
 
-import {
-  ToastData,
-  ToastConfig,
-  TOAST_CONFIG,
-  TOAST_DATA,
-} from './toast-config';
+import { TOAST_CONFIG, TOAST_DATA } from './toast-config';
 import { ToastRef } from './toast-ref';
 import { ToastAnimation, toastAnimations } from './toast-animation';
-import { map, timer, merge, of, firstValueFrom } from 'rxjs';
-import { CommonModule } from '@angular/common';
+import { map, timer, merge, of } from 'rxjs';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'wd-toast',
   templateUrl: './toast.component.html',
   styleUrls: ['toast.component.scss'],
-  imports: [CommonModule],
   standalone: true,
   animations: [toastAnimations.fadeToast],
 })
 export class ToastComponent {
-  protected animationState$ = merge(
+  private readonly ref = inject(ToastRef);
+  readonly toastConfig = inject(TOAST_CONFIG);
+  readonly data = inject(TOAST_DATA);
+
+  private readonly animationState$ = merge(
     of(ToastAnimation.Default),
     timer(5000).pipe(map(() => 'closing' as ToastAnimation.Closing))
   );
 
-  constructor(
-    private readonly ref: ToastRef,
-    @Inject(TOAST_CONFIG) protected toastConfig: ToastConfig,
-    @Inject(TOAST_DATA) protected data: ToastData
-  ) {}
+  readonly animationState = toSignal(this.animationState$, {
+    requireSync: true,
+  });
 
   close(): void {
     this.ref.close();
@@ -39,8 +35,7 @@ export class ToastComponent {
   async onFadeFinished(event: AnimationEvent): Promise<void> {
     const { toState } = event;
     const isFadeOut = (toState as ToastAnimation) === ToastAnimation.Closing;
-    const itFinished =
-      (await firstValueFrom(this.animationState$)) === ToastAnimation.Closing;
+    const itFinished = this.animationState() === ToastAnimation.Closing;
 
     if (isFadeOut || itFinished) {
       this.close();

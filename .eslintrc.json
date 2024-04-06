@@ -16,6 +16,12 @@
         "plugin:prettier/recommended"
       ],
       "rules": {
+        "@angular-eslint/no-host-metadata-property": [
+          "off",
+          {
+            "allowStatic": true
+          }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {

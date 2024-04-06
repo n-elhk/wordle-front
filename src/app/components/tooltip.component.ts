@@ -1,4 +1,4 @@
-import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
@@ -24,5 +24,5 @@ import { animate, style, transition, trigger } from '@angular/animations';
   ],
 })
 export class AwesomeTooltipComponent {
-  @Input() public text = '';
+  public text = '';
 }

@@ -3,8 +3,8 @@ import { InjectionToken, TemplateRef } from '@angular/core';
 export class ToastData {
   type: ToastType = 'info';
   text?: string;
-  template?: TemplateRef<any>;
-  templateContext?: {};
+  template?: TemplateRef<unknown>;
+  templateContext?: Record<string, unknown>;
 }
 
 export type ToastType = 'warning' | 'info' | 'success';
@@ -21,5 +21,5 @@ export class ToastConfig {
   public data: ToastData | undefined = undefined;
 }
 
-export const TOAST_CONFIG = new InjectionToken('TOAST_CONFIG');
-export const TOAST_DATA = new InjectionToken('TOAST_DATA');
+export const TOAST_CONFIG = new InjectionToken<ToastConfig>('TOAST_CONFIG');
+export const TOAST_DATA = new InjectionToken<ToastData>('TOAST_DATA');

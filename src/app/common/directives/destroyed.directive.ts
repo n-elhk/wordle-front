@@ -1,14 +1,17 @@
-import { Directive, OnDestroy } from '@angular/core';
-import { Subject } from 'rxjs';
+import { DestroyRef, Directive, inject } from '@angular/core';
+import { ReplaySubject } from 'rxjs';
 
 @Directive({
   standalone: true,
 })
-export class DestroyedDirective implements OnDestroy {
-  public destroy$ = new Subject<void>();
+export class DestroyDirective {
+  private readonly destroyRef = inject(DestroyRef);
+  readonly destroy$ = new ReplaySubject<void>(1);
 
-  public ngOnDestroy(): void {
-    this.destroy$.next();
-    this.destroy$.complete();
+  constructor() {
+    this.destroyRef.onDestroy(() => {
+      this.destroy$.next();
+      this.destroy$.complete();
+    });
   }
 }
